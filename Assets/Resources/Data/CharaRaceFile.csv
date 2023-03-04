@@ -1,0 +1,6 @@
+﻿info,最大生命值,当前生命值,生命值回复速度,经验值速率,速度,防御力,攻击伤害,攻击角度,攻击距离,攻击范围大小,攻击点间距,连击次数,暴击伤害,暴击率,击退,幸运值,子弹数量,弹匣数量,穿透数量,弹射次数,子弹飞行距离,阵法持续回合,攻击频率
+RaceName,maxHP,curHP,resHP,resEXP,speed,defend,attackDamage,attackAngle,attackLength,attackRange,attackAcross,attackNum,criticalDamage,criticalRate,knockBack,lucky,bulletNum,magazineNum,pierceNum,bounceNum,bulletLength,scopeDuration,attackTime
+史莱姆,50,50,10,1,3,0,3,0,0,0,0,0,6,10,0,1,1,0,0,0,0,0,3
+哥布林战士,100,100,15,1,5,0,10,0,0,0,0,0,20,15,0,1,0,0,0,0,0,0,3
+哥布林弓箭手,80,80,10,1,3,0,5,0,0,0,0,0,10,10,0,1,0,0,0,0,0,0,3
+哥布林法师,80,80,10,1,3,0,5,0,0,0,0,0,10,10,0,1,0,0,0,0,0,0,3

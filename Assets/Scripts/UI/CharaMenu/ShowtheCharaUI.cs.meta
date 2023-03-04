@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 47df7ca3ff22cd0438a50efa99bb03b4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - CharaUIPrefab: {fileID: 2986642863585148603, guid: 03b951708ff1dc840894eeeff7ac2f1a, type: 3}
+  - CharaUI: {instanceID: 0}
+  - CharaShowContent: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
