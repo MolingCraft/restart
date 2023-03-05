@@ -29,8 +29,8 @@ public class ArchiveButton : MonoBehaviour
         Debug.Log("加载存档："+ArchiveName);
         //GameManager.Instance.archiveData;
         GameManager.Instance.ArchiveName = ArchiveName;
-        GameManager.Instance.Load();
-        //GameManager.Instance.TransitionTo("MainScene");
+        GameManager.Instance.LoadArchive();
+        this.GetComponent<TransitionTo>().sceneTo();
     }
     public void DeleteArchive()
     {

@@ -1046,6 +1046,7 @@ GameObject:
   - component: {fileID: 5212590169586864648}
   - component: {fileID: 4043284917794493134}
   - component: {fileID: 5898595815216857400}
+  - component: {fileID: 3833421343296706014}
   m_Layer: 5
   m_Name: ArchivePanel
   m_TagString: Untagged
@@ -1129,6 +1130,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ArchiveName: 
   Archivetext: {fileID: 4432530530169812882}
+--- !u!114 &3833421343296706014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6948421861289676998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7854c9361cdfa142a0352a7fe3e97db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneToName: SampleScene
 --- !u!1 &7056098076469947426
 GameObject:
   m_ObjectHideFlags: 0

@@ -113,7 +113,7 @@ public class GameManager : Singleton<GameManager>
         File.WriteAllText(resultPath, jsonData);//数据写入
     }
 
-    public void Load()//加载读取数据
+    public void LoadArchive()//加载读取数据
     {
 
         if (ArchiveName == null) {archiveData = new ArchiveData(); return; }
@@ -122,7 +122,7 @@ public class GameManager : Singleton<GameManager>
 
         if (stringData == "1")
         {
-            Debug.Log("检测为空存档");
+            Debug.Log("检测为空存档,创建初始模板");
             archiveData = new ArchiveData();
             return;
         }// return;//如果不存在保存数据，直接return
@@ -133,6 +133,7 @@ public class GameManager : Singleton<GameManager>
         }
         var jsonData = JsonConvert.DeserializeObject<ArchiveData>(stringData);
         archiveData = jsonData;
+        Debug.Log("存档读取完成");
     }
 
     #endregion
