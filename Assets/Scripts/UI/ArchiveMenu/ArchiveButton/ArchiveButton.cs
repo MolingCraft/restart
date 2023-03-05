@@ -30,7 +30,7 @@ public class ArchiveButton : MonoBehaviour
         //GameManager.Instance.archiveData;
         GameManager.Instance.ArchiveName = ArchiveName;
         GameManager.Instance.Load();
-        GameManager.Instance.TransitionTo("MainScene");
+        //GameManager.Instance.TransitionTo("MainScene");
     }
     public void DeleteArchive()
     {

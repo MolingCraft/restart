@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: df4fdc548af6fc04fbc15d7ba677b6ca
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - fadeCanvasPrefab: {fileID: 7902215095441951280, guid: 43d2043eb72f14c4a8d862420ed32338, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
