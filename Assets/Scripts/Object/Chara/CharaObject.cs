@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharaObject : MonoBehaviour
 {
     public string charaName;//角色名
-    public CharaData charaData;//角色种族
+    public RaceData charaData;//角色种族
     public Sprite charaSprite;//种族图片
     public EquipmentData equipmentData;//角色装备
     public Sprite equipSprite;//装备图片

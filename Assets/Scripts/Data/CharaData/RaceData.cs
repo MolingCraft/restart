@@ -1,5 +1,7 @@
+using UnityEngine;
 
-public abstract class CharaData 
+[System.Serializable]
+public class RaceData 
 {
     //所有的Lock都代表该值是否锁定不变
 
@@ -10,9 +12,8 @@ public abstract class CharaData
     public float maxHP;//最大HP
     public bool LockmaxHP;
     public float curHP;//当前HP
-    public bool LockcurHP;
-    public float loot;//掠夺，杀死敌人时的掉落率增幅
-    public bool Lockloot;
+    public float luck;//掠夺，杀死敌人时的掉落率增幅
+    public bool Lockluck;
     public float speed;//速度
     public bool Lockspeed;
     public float actionNum;//行动次数
@@ -28,7 +29,6 @@ public abstract class CharaData
     public float maxLevel;//最大等级
     public bool LockmaxLevel;
     public float curLevel;//当前等级
-    public bool LockcurLevel;
     public float rewardNum;//奖励选项数量
     public bool LockrewardNum;
     public float size;//体型大小
@@ -46,8 +46,6 @@ public abstract class CharaData
     public int bulletNum;//子弹数量
     public bool LockbulletNum;
 
-
-
-    public float attackCD;//攻击CD
-    public bool LockattackCD;
+    public int bulletpierceNum;//子弹穿刺数量
+    public bool LockbulletpierceNum;
 }

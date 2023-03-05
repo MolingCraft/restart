@@ -78,6 +78,7 @@ public class TransitionManager : Singleton<TransitionManager>
         yield return Fade(1);//先执行此行，在执行后续
                              //StartCoroutine(Fade(1));//开始执行，同时开始执行后续
 
+        MenuManager.Instance.ArchiveMenuPanel.SetActive(false);
         SceneManager.LoadScene(sceneto);
         yield return Fade(0);
         fadeCanvasPanel.SetActive(false);
