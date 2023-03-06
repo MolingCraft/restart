@@ -37,7 +37,7 @@ public class CharaManager : Singleton<CharaManager>
     [Space(10)]
     public GameObject enemyObjectfather;
     public List<GameObject> enemyObjectList=new List<GameObject>();
-
+    public Queue<GameObject> ObjectQuene;
     
     protected override void Awake()
     {

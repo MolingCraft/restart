@@ -9,6 +9,8 @@ public class RaceData
 
     public float cost;//消耗
     public float priority;//优先级，越大，越先开始行动
+    public int actionNum;//行动次数
+    public bool LockactionNum;
     public float maxHP;//最大HP
     public bool LockmaxHP;
     public float curHP;//当前HP
@@ -16,8 +18,7 @@ public class RaceData
     public bool Lockluck;
     public float speed;//速度
     public bool Lockspeed;
-    public float actionNum;//行动次数
-    public bool LockactionNum;
+    public bool LockmoveNum;
     public float defend;//防御
     public bool Lockdefend;
     public float attackShield;//攻击护盾
@@ -35,13 +36,13 @@ public class RaceData
     public bool Locksize;
     public float attackDamage;//攻击伤害
     public bool LockattackDamage;
-    public int attackLineNum;//攻击线数量（可理解为攻击弹道
+    public int attackLineNum;//攻击线数量（可理解为武器数量
     public bool LockattackLineNum;
     public float attackLineLength;//攻击线长度（攻击距离
     public bool LockattackLineLength;
     public float attackLineAngle;//攻击线角度
     public bool LockattackLineAngle;
-
+    public float knock;//击退
 
     public int bulletNum;//子弹数量
     public bool LockbulletNum;

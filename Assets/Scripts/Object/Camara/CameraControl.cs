@@ -6,6 +6,7 @@ public class CameraControl : MonoBehaviour
 {
     [Header("缩放范围限制")]
     public float ZoomMaxNum;//最大缩放限制
+    private float startZoomNum;//起始缩放大小
     public float ZoomMinNum;//最小缩放限制
     [Header("拖动范围限制")]
     public float xMaxNum;//x轴坐标限制范围
@@ -31,13 +32,15 @@ public class CameraControl : MonoBehaviour
     {
         ZoomMaxNum = 12;
         ZoomMinNum = 2;
-        xMaxNum = 0;
-        yMaxNum = 0;
+        xMaxNum = 10;
+        yMaxNum = 10;
+        startZoomNum=this.gameObject.GetComponent<Camera>().orthographicSize;
     }
     void Start()
     {
         gameObject.GetComponent<Camera>().orthographicSize = (ZoomMaxNum + ZoomMinNum)/2;
-        camera1 = gameObject.GetComponent<Camera>();
+        camera1=GetComponent<Camera>();
+        startZoomNum=this.gameObject.GetComponent<Camera>().orthographicSize;
     }
 
     // Update is called once per frame
@@ -86,5 +89,10 @@ public class CameraControl : MonoBehaviour
     {
         //MouseZoomSpeed = SettingsManager.settingData.MouseZoomSpeed;
         //MouseMoveSpeed = SettingsManager.settingData.MouseMoveSpeed;
+    }
+
+    public void restoreCamera()
+    {
+        this.gameObject.GetComponent<Camera>().orthographicSize=startZoomNum;
     }
 }
