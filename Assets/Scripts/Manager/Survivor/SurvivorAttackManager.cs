@@ -14,12 +14,6 @@ public class SurvivorAttackManager : Singleton<SurvivorAttackManager>
     private bool actionInif;//是否在玩家回合
 
 
-    [Header("行动范围划线参数")]
-    public Vector2 SkewingVector;
-    private LineRenderer AttackLine;
-    private LineRenderer AttackLine1;
-    private LineRenderer AttackLine2;
-    private Vector3 AttackLineFace;
     protected override void Awake() 
     {
         base.Awake();
@@ -28,9 +22,7 @@ public class SurvivorAttackManager : Singleton<SurvivorAttackManager>
     }
     void Start()
     {
-        AttackLine.positionCount=2;
-        AttackLine1.positionCount=2;
-        AttackLine2.positionCount=2;
+
 
         StartAttack();
     }
@@ -45,7 +37,7 @@ public class SurvivorAttackManager : Singleton<SurvivorAttackManager>
         else
         {
             ObjectActionOption.SetActive(false);
-            Debug.Log("回合结束");
+            //Debug.Log("回合结束");
             RoundEnd();
         }
 
@@ -113,36 +105,6 @@ public class SurvivorAttackManager : Singleton<SurvivorAttackManager>
         RoundStart();
     }
 
-    public void DrawAttackLine(Transform charaTrans,float length ,float angle)
-    {
-        SetAttackLine(AttackLine,true,SkewingVector);
-        AttackLineFace=charaTrans.position-(Vector3)SkewingVector;
-        StartCoroutine(DrawAttackLineCoroutine(length,angle));
-    }
-    public void DeleteAttackLine(float length ,float angle)
-    {
-     
-        SetBoolAttackLine(AttackLine,false);
-        SetBoolAttackLine(AttackLine1,false);
-        SetBoolAttackLine(AttackLine2,false);
-    }
-    private void SetBoolAttackLine(LineRenderer li,bool bo){li.enabled=bo;}
-    private void SetAttackLine(LineRenderer li,bool bo,Vector2 ve)
-    {
-        li.enabled=bo;
-        li.SetPosition(0,SkewingVector);
-        li.SetPosition(1,SkewingVector);
-    }
-
-    IEnumerator DrawAttackLineCoroutine(float length,float angle)
-    {
-        while(Vector3.Distance(AttackLine.GetPosition(0),AttackLine.GetPosition(1))<length )
-        {
-            //改变AttackLine.GetPosition(1)的位置
-            //三条线都需改变
-            yield return null;
-        }
-    }
     public void changeActionOption()
     {
         ObjectActionOption.SetActive(!ObjectActionOption.activeSelf);
