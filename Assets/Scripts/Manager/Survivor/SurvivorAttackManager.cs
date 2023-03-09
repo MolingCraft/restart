@@ -4,72 +4,27 @@ using UnityEngine;
 
 public class SurvivorAttackManager : Singleton<SurvivorAttackManager>
 {
-    public GameObject ObjectActionOption;//行动选项
-    public GameObject CancelActionButton;//取消行动按钮
-    public GameObject theCamera;//主摄像机
 
-    public bool InRoundIf;//true为玩家回合，
-    private int actionCharaNum;//行动玩家编号
-    private GameObject actionObject;//玩家方正在行动的Object
-    private bool actionInif;//是否在玩家回合
-
-
-    protected override void Awake() 
-    {
-        base.Awake();
-        InRoundIf=true;
-        actionCharaNum=0;
-    }
-    void Start()
-    {
-
-
-        StartAttack();
-    }
-
-
-    void Update()
-    {
-        if(actionInif)
-        {
-            actionObject.GetComponent<CharaObject>().EventActionIn();
-        }
-        else
-        {
-            ObjectActionOption.SetActive(false);
-            //Debug.Log("回合结束");
-            RoundEnd();
-        }
-
-    }
-
-    void StartAttack()
-    {
-
-    }
-    void RoundStart()
-    {
-
-    }
-    void RoundEnd()
-    {
-        
-    }
     
+
+
+    
+
+}
+/*
     public void PlayerRound()
     {
         Debug.Log("开始玩家回合");
         if(actionCharaNum>=CharaManager.Instance.charaObjectList.Count)actionCharaNum=0;
         actionObject=CharaManager.Instance.charaObjectList[actionCharaNum];//获取当前行动棋子
-        actionObject.GetComponent<CharaObject>().EventActionStart();
-        actionInif=actionObject.GetComponent<CharaObject>().ActionInIf;
-
 
         Vector3 vec=actionObject.transform.position;
         
         //行动菜单对准行动者
         ObjectActionOption.SetActive(true);
         ObjectActionOption.transform.position=vec;
+
+
         //相机中心对准行动者
         theCamera.GetComponent<CameraControl>().restoreCamera();
         vec.z-=10;
@@ -77,47 +32,31 @@ public class SurvivorAttackManager : Singleton<SurvivorAttackManager>
 
         //回合开始行动
         RoundStart();
+
+        actionObject.GetComponent<CharaObject>().EventAction();
 
         actionCharaNum++;
     }
 
     public void EnemyRound()
     {
-        Debug.Log("开始敌方回合");
-        int enemynum=actionCharaNum;
-        if(enemynum>=CharaManager.Instance.enemyObjectList.Count)enemynum=0;
-        actionObject=CharaManager.Instance.enemyObjectList[enemynum];//获取当前行动棋子
-        actionObject.GetComponent<CharaObject>().EventActionStart();
-        actionInif=actionObject.GetComponent<CharaObject>().ActionInIf;
-
-
-        Vector3 vec=actionObject.transform.position;
-        
-        //行动菜单对准行动者
-        ObjectActionOption.SetActive(true);
-        ObjectActionOption.transform.position=vec;
-        //相机中心对准行动者
-        theCamera.GetComponent<CameraControl>().restoreCamera();
-        vec.z-=10;
-        theCamera.transform.position=vec;
-
-        //回合开始行动
-        RoundStart();
+       
     }
 
-    public void changeActionOption()
+
+    public void ChangeAttackScope(Transform game)
     {
-        ObjectActionOption.SetActive(!ObjectActionOption.activeSelf);
-        CancelActionButton.SetActive(!CancelActionButton.activeSelf);
-    }
+        AttackScope.SetActive(true);
+        AttackScope.transform.position=game.position;
 
+    }
 
 }
 
 
 
 
-/*
+
 public class Foo : MonoBehaviour
 {
     //扇形角度

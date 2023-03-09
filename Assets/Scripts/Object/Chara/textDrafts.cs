@@ -11,11 +11,13 @@ List<GameObject> objlist;
 List<GameObject> enemylist;
 void Start()
 {
+    
     charaobjFather=CharaManager.Instance.charaObjectfather;
     enemyobjFather=CharaManager.Instance.enemyObjectfather;
 
     objlist=CharaManager.Instance.charaObjectList;
     enemylist=CharaManager.Instance.enemyObjectList;
+
 }
    public void randomCreate(int num)
     {
