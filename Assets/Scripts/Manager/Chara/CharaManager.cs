@@ -19,11 +19,11 @@ public class CharaManager : Singleton<CharaManager>
     public GameObject CharaUIShowContent;//角色展示UI生成时的父物体
 
     [Space(5)]//添加间距
-    
+
     [Header("种族与武器文件")]
 
-    public List<RaceData> RaceList=new List<RaceData>();
-    public List<EquipmentData> EquipmentList=new List<EquipmentData>();
+    public List<CharaData> RaceList=new List<CharaData>();
+    public List<CharaData> EquipmentList=new List<CharaData>();
     /*
     public TextAsset RacecsvFile;//种族csv文件
     public TextAsset WeaponcsvFile;//武器csv文件
@@ -38,7 +38,8 @@ public class CharaManager : Singleton<CharaManager>
     public GameObject enemyObjectfather;
     public List<GameObject> enemyObjectList=new List<GameObject>();
     public Queue<GameObject> ObjectQuene;
-    
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -112,7 +113,7 @@ public class CharaManager : Singleton<CharaManager>
 
     void Update()
     {
-        
+
     }
 
     public void HideCharaMenu()
@@ -120,5 +121,4 @@ public class CharaManager : Singleton<CharaManager>
         RectTransform pos = CharaUIMenuPanel.GetComponent<RectTransform>();
         pos.anchoredPosition = new Vector2(pos.anchoredPosition.x * (-1) - pos.rect.width, 0);
     }
-
 }

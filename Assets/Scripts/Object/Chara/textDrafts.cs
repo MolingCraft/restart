@@ -9,6 +9,9 @@ public GameObject charaobjFather;
 public GameObject enemyobjFather;
 List<GameObject> objlist;
 List<GameObject> enemylist;
+MyClass cl=new MyClass();
+public int text1;
+public int text2;
 void Start()
 {
     
@@ -30,5 +33,35 @@ void Start()
         {
              CharaManager.Instance.CreateEnemyObject(prefab);
         }
+    }
+    public void me1()
+    {
+        cl.Method1(ref text1,ref text2);
+    }
+    public void me2()
+    {
+        cl.Method2();
+        Debug.Log(text1+" "+text2);
+    }
+}
+
+public class MyClass
+{
+    private int x;
+    private int y;
+
+    public void Method1(ref int a, ref int b)
+    {
+        x = a;
+        y = b;
+        b+=9;
+        y+=10;
+    }
+
+    public void Method2()
+    {
+        y+=10;
+        // 在这里可以使用x和y
+        Debug.Log( x+" "+y);
     }
 }

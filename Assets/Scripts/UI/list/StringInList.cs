@@ -3,10 +3,10 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
- 
+
 public class StringInList : PropertyAttribute
 {
- 
+
     public delegate string[] GetStringList();
      public string[] List
     {
@@ -18,7 +18,7 @@ public class StringInList : PropertyAttribute
     {
         List = list;
     }
- 
+
     public StringInList(Type type, string methodName)
     {
         var method = type.GetMethod(methodName);
@@ -31,12 +31,12 @@ public class StringInList : PropertyAttribute
             Debug.LogError("NO SUCH METHOD " + methodName + " FOR " + type);
         }
     }
- 
+
 }
- 
+
 #if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(StringInList))]
- 
+
 public class StringInListDrawer : PropertyDrawer
 {
     // Draw the property inside the given rect
@@ -50,7 +50,7 @@ public class StringInListDrawer : PropertyDrawer
             index = EditorGUI.Popup(position, property.displayName, index, list);
 
             property.stringValue = list[index];
- 
+
         }
         else if (property.propertyType == SerializedPropertyType.Integer)
         {
@@ -60,9 +60,9 @@ public class StringInListDrawer : PropertyDrawer
         {
             base.OnGUI(position, property, label);
         }
- 
+
     }
- 
+
 }
- 
+
 #endif

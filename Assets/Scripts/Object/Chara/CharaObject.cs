@@ -9,115 +9,122 @@ public enum States
     ,//事件加入战场
     None
     ,//无行动
-    ActionStart
+    Action_Start
     ,//行动开始
-    ActionIn
-    ,//行动中
-    ActionEnd
+    Action_End
     ,//行动结束
+    Action_Attack
+    ,//行动攻击
+    Action_Move
+    ,//行动移动
+
+
 
 }
 
 public class CharaObject : MonoBehaviour
 {
-    public string charaName;//角色名
-    public RaceData charaData;//角色种族
-    [Header("Sprite设置")]
-    public Sprite BodySprite;//种族图片
-    public Sprite RightHandSprite;//右手图片
-    public Sprite LeftHandSprite;//左手图片
+    public bool Action_EndIf;
+    public CharaData charaData;//角色数据
+
+    public States charaStates;//角色当前状态
+
+    public List<Buff> BuffList=new List<Buff>();//Buff列表
     public Vector2 objectVector2;//位置
 
-    public States states;
+    public delegate void VoidDelegate();
 
-//一些在回合中需要重置的数据，读取出来进行更改
-private int actionNum;//允许行动次数
-private int sortingorder111;///最开始的图层排序数字
+    public static event VoidDelegate Event_Action_Start;
 
-    public void EventAddInBattlefield()//加入战场事件
+    public static event VoidDelegate Event_Action_End;
+
+    public static event VoidDelegate Event_Attack_Start;
+
+    public static event VoidDelegate Event_Attack_End;
+
+    public static event VoidDelegate Event_Move_Start;
+
+    public static event VoidDelegate Event_Move_End;
+
+    private int sortingorder111;//最开始的图层排序数字
+
+    public CharaObject()
+    {
+        Event_Action_Start+=Buff_Effect;
+        Event_Action_End  +=Buff_Effect;
+    }
+    public void AddInBattlefield()//加入战场事件
     {
         charaData.curHP=charaData.maxHP;
-        states=States.None;
+        charaData.curActionNum=charaData.maxActionNum;
 
     }
 
-    public void EventAction()//行动事件
+    public void Action_Start()
     {
-        switch(states)
-        {
-            case States.ActionStart:
+        Action_EndIf=false;
+        charaData.curActionNum=charaData.maxActionNum;
+        Debug.Log(this.transform.gameObject.name+" 行动开始,行动点数回复");
+        charaStates=States.Action_Start;
+        if(Event_Action_Start != null)Event_Action_Start();
+    }
+    public void Action_End()
+    {
+        Debug.Log(this.transform.gameObject.name+" 行动结束");
+        charaStates=States.Action_End;
+        if(Event_Action_End != null)Event_Action_End();
 
-                sortingorder111=this.GetComponent<SpriteRenderer>().sortingOrder;
-                this.GetComponent<SpriteRenderer>().sortingOrder=100;
-                actionNum=charaData.actionNum;
-                break;
-
-            case States.ActionIn:
-                /*
-                动画效果等在回合中持续性作用的函数
-                */
-
-                
-                break;
-
-            
-            
-            case States.ActionEnd:
-                this.GetComponent<SpriteRenderer>().sortingOrder=sortingorder111;
-
-                break;
-
-            default:
-
-                break;
-        }
-
+        ActionOptionsUI.Instance.Action_End();
     }
 
-    public void EventAttackStart()
-    {
 
-        //SurvivorAttackManager.Instance.ChangeAttackScope(this.transform);//展现攻击范围
-        
+
+    public void Action_Attack_Scope()
+    {
 
     }
-    public void EventAttackIn()
+    public void Action_Attack()
     {
+        charaStates=States.Action_Attack;
+
+        if(Event_Attack_Start != null)Event_Attack_Start();
+
+        charaData.curActionNum--;
+        Debug.Log(this.transform.gameObject.name+" 发起了一次攻击,剩余行动点数"+charaData.curActionNum);
+
+
         //攻击内容
-        Debug.Log("发起了一次攻击,剩余攻击次数"+actionNum);
-        EventAttackEnd();
+
+
+
+        if(Event_Attack_End != null)Event_Attack_End();
+
+        if(charaData.curActionNum<=0)Action_EndIf=true;
     }
-    public void EventAttackEnd()
+
+    public void Action_Move()
+    {
+        charaStates=States.Action_Move;
+
+        if(Event_Move_Start != null)Event_Move_Start();
+
+        if(Event_Move_End != null)Event_Move_End();
+
+        if(charaData.curActionNum<=0)Action_End();
+    }
+
+    public void Action_Injury(float damage)//受伤事件
     {
 
 
-
-        actionNum--;
-        if(actionNum==0)
-        {
-            states=States.ActionEnd;
-            EventAction();
-            return;
-        }
-        EventAttackStart();
-    }
-    public void EventMove()
-    {
-
-    }
-
-    public void EventInjury(float damage)//受伤事件
-    {
-
- 
         charaData.curHP-=damage;
         if(charaData.curHP<=0f)
         {
-            EventDeath();
+            Action_Death();
         }
     }
 
-    public void EventDeath()//死亡事件
+    public void Action_Death()//死亡事件
     {
 
         this.gameObject.SetActive(false);
@@ -125,43 +132,26 @@ private int sortingorder111;///最开始的图层排序数字
 
     }
 
-    public void EventInstantBuff()//即时性buff
+
+
+
+    public void Buff_Effect()
     {
-
+        foreach(Buff buff in BuffList)
+        {
+            if(buff.Effective==false)Buff_Remove(buff);
+            else buff.Effect(this,charaStates);
+        }
     }
-    public void EventAddSustainedBuff()//添加持续性buff
+    public void Buff_Add(Buff buff)
     {
-
+        BuffList.Add(buff);
     }
-    
-    /*
-    public int killNum;//杀敌数
-    public float walkNum;//行走路程
-    public int survivalRound;//存活回合
-
-    public bool ActionInIf=false;//是否在行动中
-    
-
-    
-   
-
-    public void EventPlayerMove()
+    public void Buff_Remove(Buff buff)
     {
-        SurvivorAttackManager.Instance.changeActionOption();
+        BuffList.Remove(buff);
     }
-    public void EventEnemyMove()
-    {
 
-    }
-    
-
-*/
 
 }
 
-
-
-
-
-
- 

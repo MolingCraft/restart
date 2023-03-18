@@ -2780,7 +2780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1816905783
 Transform:
   m_ObjectHideFlags: 0
@@ -2976,14 +2976,17 @@ MonoBehaviour:
   CharaUIMenuPanel: {fileID: 566261762851554120}
   CharaUIShowContent: {fileID: 566261763094363485}
   RaceList:
-  - raceName: race1
+  - curHP: 10
+    attackShield: 0
+    curEXP: 0
+    curLevel: 1
+    curActionNum: 0
+    charaName: 
     cost: 5
-    priority: 0
-    actionNum: 1
+    maxActionNum: 3
     LockactionNum: 0
     maxHP: 10
     LockmaxHP: 0
-    curHP: 10
     luck: 1
     Lockluck: 0
     speed: 1
@@ -2991,15 +2994,10 @@ MonoBehaviour:
     LockmoveNum: 0
     defend: 0
     Lockdefend: 0
-    attackShield: 0
-    LockattackShield: 0
     maxEXP: 10
     LockmaxEXP: 0
-    curEXP: 0
-    LockcurEXP: 0
     maxLevel: 10
     LockmaxLevel: 0
-    curLevel: 1
     rewardNum: 0
     LockrewardNum: 0
     size: 1
@@ -3017,14 +3015,17 @@ MonoBehaviour:
     LockbulletNum: 1
     bulletpierceNum: 0
     LockbulletpierceNum: 1
-  - raceName: race2
+  - curHP: 10
+    attackShield: 0
+    curEXP: 0
+    curLevel: 1
+    curActionNum: 0
+    charaName: 
     cost: 5
-    priority: 0
-    actionNum: 1
+    maxActionNum: 4
     LockactionNum: 0
     maxHP: 20
     LockmaxHP: 0
-    curHP: 10
     luck: 1
     Lockluck: 0
     speed: 1
@@ -3032,15 +3033,10 @@ MonoBehaviour:
     LockmoveNum: 0
     defend: 0
     Lockdefend: 0
-    attackShield: 0
-    LockattackShield: 0
     maxEXP: 10
     LockmaxEXP: 0
-    curEXP: 0
-    LockcurEXP: 0
     maxLevel: 10
     LockmaxLevel: 0
-    curLevel: 1
     rewardNum: 0
     LockrewardNum: 0
     size: 1
@@ -3058,14 +3054,17 @@ MonoBehaviour:
     LockbulletNum: 1
     bulletpierceNum: 0
     LockbulletpierceNum: 1
-  - raceName: race3
+  - curHP: 10
+    attackShield: 0
+    curEXP: 0
+    curLevel: 1
+    curActionNum: 0
+    charaName: 
     cost: 5
-    priority: 0
-    actionNum: 1
+    maxActionNum: 5
     LockactionNum: 0
     maxHP: 30
     LockmaxHP: 0
-    curHP: 10
     luck: 1
     Lockluck: 0
     speed: 1
@@ -3073,15 +3072,10 @@ MonoBehaviour:
     LockmoveNum: 0
     defend: 0
     Lockdefend: 0
-    attackShield: 0
-    LockattackShield: 0
     maxEXP: 10
     LockmaxEXP: 0
-    curEXP: 0
-    LockcurEXP: 0
     maxLevel: 10
     LockmaxLevel: 0
-    curLevel: 1
     rewardNum: 0
     LockrewardNum: 0
     size: 1
@@ -3099,14 +3093,17 @@ MonoBehaviour:
     LockbulletNum: 1
     bulletpierceNum: 0
     LockbulletpierceNum: 1
-  - raceName: bullet1
+  - curHP: 10
+    attackShield: 0
+    curEXP: 0
+    curLevel: 1
+    curActionNum: 0
+    charaName: 
     cost: 5
-    priority: 0
-    actionNum: 1
+    maxActionNum: 2
     LockactionNum: 0
     maxHP: 20
     LockmaxHP: 0
-    curHP: 10
     luck: 1
     Lockluck: 0
     speed: 1
@@ -3114,15 +3111,10 @@ MonoBehaviour:
     LockmoveNum: 0
     defend: 0
     Lockdefend: 0
-    attackShield: 0
-    LockattackShield: 0
     maxEXP: 10
     LockmaxEXP: 0
-    curEXP: 0
-    LockcurEXP: 0
     maxLevel: 10
     LockmaxLevel: 0
-    curLevel: 1
     rewardNum: 0
     LockrewardNum: 0
     size: 1
@@ -3141,29 +3133,28 @@ MonoBehaviour:
     bulletpierceNum: 1
     LockbulletpierceNum: 0
   EquipmentList:
-  - equipmentName: equip1
+  - curHP: 0
+    attackShield: 0
+    curEXP: 0
+    curLevel: 0
+    curActionNum: 0
+    charaName: 
     cost: 5
-    priority: 0
+    maxActionNum: 0
+    LockactionNum: 0
     maxHP: 0
     LockmaxHP: 0
-    curHP: 0
     luck: 0
     Lockluck: 0
     speed: 0
     Lockspeed: 0
-    actionNum: 0
-    LockactionNum: 0
+    LockmoveNum: 0
     defend: 0
     Lockdefend: 0
-    attackShield: 0
-    LockattackShield: 0
     maxEXP: 0
     LockmaxEXP: 0
-    curEXP: 0
-    LockcurEXP: 0
     maxLevel: 0
     LockmaxLevel: 0
-    curLevel: 0
     rewardNum: 0
     LockrewardNum: 0
     size: 0
@@ -3176,33 +3167,33 @@ MonoBehaviour:
     LockattackLineLength: 0
     attackLineAngle: 0
     LockattackLineAngle: 0
+    knock: 0
     bulletNum: 0
     LockbulletNum: 0
     bulletpierceNum: 1
     LockbulletpierceNum: 0
-  - equipmentName: equip2
+  - curHP: 0
+    attackShield: 0
+    curEXP: 0
+    curLevel: 0
+    curActionNum: 0
+    charaName: 
     cost: 5
-    priority: 0
+    maxActionNum: 0
+    LockactionNum: 0
     maxHP: 0
     LockmaxHP: 0
-    curHP: 0
     luck: 0
     Lockluck: 0
     speed: 0
     Lockspeed: 0
-    actionNum: 0
-    LockactionNum: 0
+    LockmoveNum: 0
     defend: 0
     Lockdefend: 0
-    attackShield: 0
-    LockattackShield: 0
     maxEXP: 0
     LockmaxEXP: 0
-    curEXP: 0
-    LockcurEXP: 0
     maxLevel: 0
     LockmaxLevel: 0
-    curLevel: 0
     rewardNum: 0
     LockrewardNum: 0
     size: 0
@@ -3215,6 +3206,7 @@ MonoBehaviour:
     LockattackLineLength: 0
     attackLineAngle: 0
     LockattackLineAngle: 0
+    knock: 0
     bulletNum: 1
     LockbulletNum: 0
     bulletpierceNum: 0
