@@ -26,6 +26,11 @@ public class CharaObject : MonoBehaviour
 {
     public bool Action_EndIf;
     public CharaData charaData;//角色数据
+    public List<AffixData> AffixList;
+    public float curHP;//当前HP
+    public float curActionNum;//当前行动点数
+
+
 
     public States charaStates;//角色当前状态
 
@@ -55,15 +60,14 @@ public class CharaObject : MonoBehaviour
     }
     public void AddInBattlefield()//加入战场事件
     {
-        charaData.curHP=charaData.maxHP;
-        charaData.curActionNum=charaData.maxActionNum;
-
+        curHP=charaData.HP;
+        curActionNum=charaData.maxActionNum;
     }
 
     public void Action_Start()
     {
         Action_EndIf=false;
-        charaData.curActionNum=charaData.maxActionNum;
+        curActionNum=charaData.maxActionNum;
         Debug.Log(this.transform.gameObject.name+" 行动开始,行动点数回复");
         charaStates=States.Action_Start;
         if(Event_Action_Start != null)Event_Action_Start();
@@ -89,8 +93,8 @@ public class CharaObject : MonoBehaviour
 
         if(Event_Attack_Start != null)Event_Attack_Start();
 
-        charaData.curActionNum--;
-        Debug.Log(this.transform.gameObject.name+" 发起了一次攻击,剩余行动点数"+charaData.curActionNum);
+        curActionNum--;
+        Debug.Log(this.transform.gameObject.name+" 发起了一次攻击,剩余行动点数"+curActionNum);
 
 
         //攻击内容
@@ -99,7 +103,7 @@ public class CharaObject : MonoBehaviour
 
         if(Event_Attack_End != null)Event_Attack_End();
 
-        if(charaData.curActionNum<=0)Action_EndIf=true;
+        if(curActionNum<=0)Action_EndIf=true;
     }
 
     public void Action_Move()
@@ -110,15 +114,15 @@ public class CharaObject : MonoBehaviour
 
         if(Event_Move_End != null)Event_Move_End();
 
-        if(charaData.curActionNum<=0)Action_End();
+        if(curActionNum<=0)Action_End();
     }
 
     public void Action_Injury(float damage)//受伤事件
     {
 
 
-        charaData.curHP-=damage;
-        if(charaData.curHP<=0f)
+        curHP-=damage;
+        if(curHP<=0f)
         {
             Action_Death();
         }
@@ -151,7 +155,14 @@ public class CharaObject : MonoBehaviour
     {
         BuffList.Remove(buff);
     }
-
+/*
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(!other.CompareTag(this.transform.gameObject.tag))
+        {
+            other.transform.gameObject.GetComponent<CharaObject>().Action_Injury(charaData.attackDamage);
+        }
+    }*/
 
 }
 

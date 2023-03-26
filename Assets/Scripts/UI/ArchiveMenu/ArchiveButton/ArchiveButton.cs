@@ -7,14 +7,13 @@ using UnityEngine.UI;
 public class ArchiveButton : MonoBehaviour
 {
     string jsonArchiveFolder;
-    
+
     public string ArchiveName;
     public Text Archivetext;
     public void Start()
     {
         jsonArchiveFolder = Application.dataPath + "/SaveData/ArchiveData/";
-        
-        
+
     }
 
     public void ChangetheName()

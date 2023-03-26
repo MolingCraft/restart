@@ -24,7 +24,7 @@ public class Buff_TurnLimited_Atttibute_HP_Alone : Buff_TurnLimited
     {
         if(!Effective)return;
         if(charaStates!=NeedStates)return;//判断是否是可生效的状态
-        charaObject.charaData.curHP-=ChangeValue;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ;
+        charaObject.curHP-=ChangeValue;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ;
         sustainedNum_Reduce();
         if(sustainedNum<=0)Effective=false;
     }

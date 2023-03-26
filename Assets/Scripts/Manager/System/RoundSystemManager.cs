@@ -19,6 +19,8 @@ public class RoundSystemManager : Singleton<RoundSystemManager>
     public static event VoidDelegate Event_Round_Start;
     public static event VoidDelegate Event_Round_End;
 
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -28,6 +30,11 @@ public class RoundSystemManager : Singleton<RoundSystemManager>
         roundSequence=new SurvivorSequence();
 
         Game_Start();
+
+
+
+
+
     }
 
 

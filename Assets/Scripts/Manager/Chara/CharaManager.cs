@@ -23,7 +23,6 @@ public class CharaManager : Singleton<CharaManager>
     [Header("种族与武器文件")]
 
     public List<CharaData> RaceList=new List<CharaData>();
-    public List<CharaData> EquipmentList=new List<CharaData>();
     /*
     public TextAsset RacecsvFile;//种族csv文件
     public TextAsset WeaponcsvFile;//武器csv文件
@@ -80,9 +79,18 @@ public class CharaManager : Singleton<CharaManager>
 
     }
 
-      public void LoadArchiveChara()//读取存档内角色
+    private void OnEnable()
     {
+        GameManager.Event_LoadArchive+=LoadArchiveChara;
+    }
 
+    private void OnDisable()
+    {
+        GameManager.Event_LoadArchive-=LoadArchiveChara;
+    }
+      public void LoadArchiveChara(ArchiveData archiveData)//读取存档内角色
+    {
+        //RaceList=archiveData.
     }
 
     public void CreateCharaObject(GameObject prefab)

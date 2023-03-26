@@ -20,6 +20,8 @@ public class GameManager : Singleton<GameManager>
 
     public ArchiveData archiveData;
 
+    public delegate void VoidDelegate(ArchiveData archiveData);
+    public static event VoidDelegate Event_LoadArchive;
 
     protected override void Awake()
     {
@@ -130,9 +132,13 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.Log("开始加载存档数据");
 
+
         }
         var jsonData = JsonConvert.DeserializeObject<ArchiveData>(stringData);
         archiveData = jsonData;
+
+        if(Event_LoadArchive!=null) Event_LoadArchive(archiveData);
+
         Debug.Log("存档读取完成");
     }
 
