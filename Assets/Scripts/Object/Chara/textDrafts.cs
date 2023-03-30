@@ -27,11 +27,11 @@ void Start()
 
         for(int i=1;i<=num;i++)
         {
-             CharaManager.Instance.CreateCharaObject(prefab);
+             CharaManager.Instance.CreateObject(prefab,tagname.Player);
         }
         for(int i=1;i<=num;i++)
         {
-             CharaManager.Instance.CreateEnemyObject(prefab);
+             CharaManager.Instance.CreateObject(prefab,tagname.Enemy);
         }
     }
     public void me1()

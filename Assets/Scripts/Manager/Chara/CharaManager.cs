@@ -23,10 +23,10 @@ public class CharaManager : Singleton<CharaManager>
     [Header("种族与武器文件")]
 
     public List<CharaData> RaceList=new List<CharaData>();
-
+/*
     public TextAsset RacecsvFile;//种族csv文件
     public Dictionary<String, CharaData> RaceDict = new Dictionary<String, CharaData>();
-
+*/
     [Space(20)]
     [Header("已生成对象")]
     public GameObject charaObjectfather;
@@ -40,7 +40,7 @@ public class CharaManager : Singleton<CharaManager>
     protected override void Awake()
     {
         base.Awake();
-
+/*
         if (RacecsvFile == null) return;
         RaceDict.Clear();
 
@@ -56,7 +56,7 @@ public class CharaManager : Singleton<CharaManager>
 
             RaceDict.Add(chara.charaName, chara);
         }
-
+*/
 
     }
 
@@ -74,21 +74,24 @@ public class CharaManager : Singleton<CharaManager>
         //RaceList=archiveData.
     }
 
-    public void CreateCharaObject(GameObject prefab)
+    public void CreateObject(GameObject prefab,tagname tagname)
     {
-        GameObject obj = (GameObject)GameObject.Instantiate(
+        if(tagname==tagname.Player)
+        {
+            GameObject obj = (GameObject)GameObject.Instantiate(
                 prefab, charaObjectfather.transform.position, Quaternion.identity, charaObjectfather.transform);
             charaObjectList.Add(obj);
+        }
+        else if(tagname==tagname.Enemy)
+        {
+            GameObject obj = (GameObject)GameObject.Instantiate(
+                prefab, enemyObjectfather.transform.position, Quaternion.identity, enemyObjectfather.transform);
+            enemyObjectList.Add(obj);
+        }
     }
     public void DeleteCharaObject()
     {
 
-    }
-    public void CreateEnemyObject(GameObject prefab)
-    {
-        GameObject obj = (GameObject)GameObject.Instantiate(
-                prefab, enemyObjectfather.transform.position, Quaternion.identity, enemyObjectfather.transform);
-            enemyObjectList.Add(obj);
     }
     public void DeleteEnemyObject()
     {
@@ -110,4 +113,5 @@ public class CharaManager : Singleton<CharaManager>
         RectTransform pos = CharaUIMenuPanel.GetComponent<RectTransform>();
         pos.anchoredPosition = new Vector2(pos.anchoredPosition.x * (-1) - pos.rect.width, 0);
     }
+
 }

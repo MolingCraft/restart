@@ -9,160 +9,108 @@ public enum States
     ,//事件加入战场
     None
     ,//无行动
-    Action_Start
-    ,//行动开始
-    Action_End
-    ,//行动结束
-    Action_Attack
-    ,//行动攻击
-    Action_Move
-    ,//行动移动
-
-
 
 }
-
+public enum tagname
+{
+    Player,
+    Enemy,
+}
 public class CharaObject : MonoBehaviour
 {
-    public bool Action_EndIf;
     public CharaData charaData;//角色数据
-    public List<AffixData> AffixList;
     public float curHP;//当前HP
-    public float curActionNum;//当前行动点数
-
-
-
     public States charaStates;//角色当前状态
+    public Vector2 charaVector;//坐标
 
-    public List<Buff> BuffList=new List<Buff>();//Buff列表
-    public Vector2 objectVector2;//位置
-
+    public bool TraceIf;
     public delegate void VoidDelegate();
 
-    public static event VoidDelegate Event_Action_Start;
+    public static event VoidDelegate Event_Move;
 
-    public static event VoidDelegate Event_Action_End;
-
-    public static event VoidDelegate Event_Attack_Start;
-
-    public static event VoidDelegate Event_Attack_End;
-
-    public static event VoidDelegate Event_Move_Start;
-
-    public static event VoidDelegate Event_Move_End;
-
-    private int sortingorder111;//最开始的图层排序数字
-
-    public CharaObject()
+    public CharaObject(tagname tagn,CharaData data)
     {
-        Event_Action_Start+=Buff_Effect;
-        Event_Action_End  +=Buff_Effect;
-    }
-    public void AddInBattlefield()//加入战场事件
-    {
+        this.transform.tag=tagn.ToString();
+        this.charaData=data;
         curHP=charaData.HP;
-        curActionNum=charaData.maxActionNum;
     }
 
-    public void Action_Start()
+    private void FixedUpdate()
     {
-        Action_EndIf=false;
-        curActionNum=charaData.maxActionNum;
-        Debug.Log(this.transform.gameObject.name+" 行动开始,行动点数回复");
-        charaStates=States.Action_Start;
-        if(Event_Action_Start != null)Event_Action_Start();
-    }
-    public void Action_End()
-    {
-        Debug.Log(this.transform.gameObject.name+" 行动结束");
-        charaStates=States.Action_End;
-        if(Event_Action_End != null)Event_Action_End();
-
-        ActionOptionsUI.Instance.Action_End();
+        if(TraceIf)Trace();
     }
 
-
-
-    public void Action_Attack_Scope()
+    void Trace()
     {
-
-    }
-    public void Action_Attack()
-    {
-        charaStates=States.Action_Attack;
-
-        if(Event_Attack_Start != null)Event_Attack_Start();
-
-        curActionNum--;
-        Debug.Log(this.transform.gameObject.name+" 发起了一次攻击,剩余行动点数"+curActionNum);
-
-
-        //攻击内容
-
-
-
-        if(Event_Attack_End != null)Event_Attack_End();
-
-        if(curActionNum<=0)Action_EndIf=true;
-    }
-
-    public void Action_Move()
-    {
-        charaStates=States.Action_Move;
-
-        if(Event_Move_Start != null)Event_Move_Start();
-
-        if(Event_Move_End != null)Event_Move_End();
-
-        if(curActionNum<=0)Action_End();
-    }
-
-    public void Action_Injury(float damage)//受伤事件
-    {
-
-
-        curHP-=damage;
-        if(curHP<=0f)
+        if(this.transform.tag=="Player")
         {
-            Action_Death();
+
         }
-    }
-
-    public void Action_Death()//死亡事件
-    {
-
-        this.gameObject.SetActive(false);
-        //CharaManager.Instance.charaObjectList.Remove(this.transform.gameObject);
-
-    }
-
-
-
-
-    public void Buff_Effect()
-    {
-        foreach(Buff buff in BuffList)
+        else// if(this.transform.tag=="Enemy")
         {
-            if(buff.Effective==false)Buff_Remove(buff);
-            else buff.Effect(this,charaStates);
+
         }
+        var FindObject=TraceTheNearestObject(this);
+
+        Event_Move();
+        Action_Moveto(FindObject.transform.position);
+
     }
-    public void Buff_Add(Buff buff)
+
+
+    void Action_Moveto(Vector2 vec2)
     {
-        BuffList.Add(buff);
-    }
-    public void Buff_Remove(Buff buff)
-    {
-        BuffList.Remove(buff);
-    }
+        float distance = (vec2 - (Vector2)this.transform.position).sqrMagnitude;
+        float XDistance = vec2.x - this.transform.position.x;
+        float YDistance = vec2.y - this.transform.position.y;
 /*
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if(!other.CompareTag(this.transform.gameObject.tag))
-        {
-            other.transform.gameObject.GetComponent<CharaObject>().Action_Injury(charaData.attackDamage);
-        }
-    }*/
+        if (distance < Radius && distance > interval)
+            {
+                EnemyRigid.velocity = new Vector2(XDistance * EnemySpeed, YDistance * EnemySpeed);
+                //Prefs.storynumber = 1000;
+                
+            }
+            else if(BackStartIf&&distance>Radius)
+            {
+                transform.position =new Vector2(XStartDistance,YStartDistance);
+                
+            }*/
+    }
 
+    GameObject TraceTheNearestObject(CharaObject charaObj)
+    {
+        List<GameObject> objectList;
+        string TraceTag;
+
+        if(charaObj.tag==tagname.Player.ToString())
+        {
+            objectList=CharaManager.Instance.enemyObjectList;
+            TraceTag=tagname.Enemy.ToString();
+        }
+        else //if(obj.tag==tagname.Enemy.ToString())
+        {
+            objectList=CharaManager.Instance.charaObjectList;
+            TraceTag=tagname.Player.ToString();
+        }
+
+
+        //遍历寻找距离最近的object
+        var FindObject=objectList[0];
+        for(int i=1;i<objectList.Count;i++)
+        {
+            var obj=objectList[i];
+
+            float dis1=Vector2.Distance(charaObj.transform.position,       obj.transform.position);
+            float dis2=Vector2.Distance(charaObj.transform.position,FindObject.transform.position);
+
+            if(dis1<dis2)
+            {
+                FindObject=obj;
+            }
+
+        }
+
+        return FindObject;
+    }
 }
 
