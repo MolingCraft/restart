@@ -21,26 +21,42 @@ public class CharaObject : MonoBehaviour
     public CharaData charaData;//角色数据
     public float curHP;//当前HP
     public States charaStates;//角色当前状态
-    public Vector2 charaVector;//坐标
+
 
     public bool TraceIf;
+    /// <summary>
+/// 追踪时停止的间距
+/// </summary>
+    public float traceDistance;
+
     public delegate void VoidDelegate();
 
     public static event VoidDelegate Event_Move;
 
+    private Rigidbody2D thisRigid;
+
+    private bool CouldAttackIf;
+
+    [SerializeField]
+    private GameObject _FindObject;
     public CharaObject(tagname tagn,CharaData data)
     {
         this.transform.tag=tagn.ToString();
         this.charaData=data;
         curHP=charaData.HP;
+        CouldAttackIf=false;
     }
-
+    private void Start() {
+        thisRigid=this.transform.GetComponent<Rigidbody2D>();
+        traceDistance=1.2f;
+        StartCoroutine(AttackCD());
+    }
     private void FixedUpdate()
     {
         if(TraceIf)Trace();
     }
 
-    void Trace()
+    void Trace()//追踪
     {
         if(this.transform.tag=="Player")
         {
@@ -50,11 +66,39 @@ public class CharaObject : MonoBehaviour
         {
 
         }
-        var FindObject=TraceTheNearestObject(this);
+        _FindObject=TraceTheNearestObject(this);
+        if(_FindObject==null)return;
+        //避免过近
+        float dis2=Vector2.Distance(this.transform.position,_FindObject.transform.position);
+        if(dis2<traceDistance)
+        {
+            //此间进行攻击
+            CouldAttackIf=true;
 
-        Event_Move();
-        Action_Moveto(FindObject.transform.position);
+            return;
+        }
+        CouldAttackIf=false;
 
+        if(Event_Move!=null)Event_Move();
+        Action_Moveto(_FindObject.transform.position);
+
+    }
+
+    IEnumerator AttackCD()
+    {
+        while(true)
+        {
+            if(_FindObject!=null && CouldAttackIf==true)
+            {
+                Action_Attack(_FindObject);
+            }
+            yield return new WaitForSeconds(charaData.attackCD);
+        }
+    }
+
+    void Action_Attack(GameObject attackObject)
+    {
+        attackObject.GetComponent<CharaObject>().Action_Hit(charaData.damage);
     }
 
 
@@ -63,20 +107,14 @@ public class CharaObject : MonoBehaviour
         float distance = (vec2 - (Vector2)this.transform.position).sqrMagnitude;
         float XDistance = vec2.x - this.transform.position.x;
         float YDistance = vec2.y - this.transform.position.y;
-/*
-        if (distance < Radius && distance > interval)
-            {
-                EnemyRigid.velocity = new Vector2(XDistance * EnemySpeed, YDistance * EnemySpeed);
-                //Prefs.storynumber = 1000;
-                
-            }
-            else if(BackStartIf&&distance>Radius)
-            {
-                transform.position =new Vector2(XStartDistance,YStartDistance);
-                
-            }*/
-    }
 
+        thisRigid.velocity =charaData.speed*new Vector2(XDistance, YDistance).normalized;
+    }
+/// <summary>
+/// 寻找到距离最近的Object并返回
+/// </summary>
+/// <param name="charaObj">起始Object</param>
+/// <returns></returns>
     GameObject TraceTheNearestObject(CharaObject charaObj)
     {
         List<GameObject> objectList;
@@ -87,14 +125,19 @@ public class CharaObject : MonoBehaviour
             objectList=CharaManager.Instance.enemyObjectList;
             TraceTag=tagname.Enemy.ToString();
         }
-        else //if(obj.tag==tagname.Enemy.ToString())
+        else if(charaObj.tag==tagname.Enemy.ToString())
         {
             objectList=CharaManager.Instance.charaObjectList;
             TraceTag=tagname.Player.ToString();
         }
+        else
+        {
+            return null;
+        }
 
 
         //遍历寻找距离最近的object
+        if(objectList.Count<=0)return null;
         var FindObject=objectList[0];
         for(int i=1;i<objectList.Count;i++)
         {
@@ -112,5 +155,36 @@ public class CharaObject : MonoBehaviour
 
         return FindObject;
     }
+
+
+
+    public void Action_Hit(float attack)//受伤
+    {
+        curHP-=attack;
+        if(curHP<=0)Invoke("action_Death",0.1f);
+    }
+
+    public void action_Death()//死亡
+    {
+        List<GameObject> ObjectList;
+
+        this.transform.gameObject.SetActive(false);
+
+        if(this.transform.tag==tagname.Player.ToString())
+        {
+            ObjectList=CharaManager.Instance.charaObjectList;
+        }
+        else if(this.transform.tag==tagname.Enemy.ToString())
+        {
+            ObjectList=CharaManager.Instance.enemyObjectList;
+        }
+        else
+        {
+            ObjectList=CharaManager.Instance.enemyObjectList;
+        }
+
+        ObjectList.Remove(this.transform.gameObject);
+    }
+
 }
 

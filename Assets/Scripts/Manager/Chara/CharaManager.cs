@@ -74,26 +74,37 @@ public class CharaManager : Singleton<CharaManager>
         //RaceList=archiveData.
     }
 
-    public void CreateObject(GameObject prefab,tagname tagname)
+    public void CreateObject(GameObject prefab,tagname tagname,Vector3 vec3)
     {
+        Vector3 createPosition=new Vector3();
+        GameObject createObjFather;
+        List<GameObject> createObjList;
         if(tagname==tagname.Player)
         {
-            GameObject obj = (GameObject)GameObject.Instantiate(
-                prefab, charaObjectfather.transform.position, Quaternion.identity, charaObjectfather.transform);
-            charaObjectList.Add(obj);
+            createPosition=charaObjectfather.transform.position;
+            createObjFather=charaObjectfather;
+            createObjList=charaObjectList;
         }
         else if(tagname==tagname.Enemy)
         {
-            GameObject obj = (GameObject)GameObject.Instantiate(
-                prefab, enemyObjectfather.transform.position, Quaternion.identity, enemyObjectfather.transform);
-            enemyObjectList.Add(obj);
-        }
-    }
-    public void DeleteCharaObject()
-    {
 
+            createPosition=enemyObjectfather.transform.position;
+            createObjFather=enemyObjectfather;
+            createObjList=enemyObjectList;
+        }
+        else
+        {
+            createPosition=new Vector3(0,0,0);
+            createObjFather=null;
+            createObjList=charaObjectList;
+        }
+        GameObject obj = (GameObject)GameObject.Instantiate(
+                prefab,vec3, Quaternion.identity, createObjFather.transform);
+
+        obj.tag=tagname.ToString();
+        createObjList.Add(obj);
     }
-    public void DeleteEnemyObject()
+    public void DeleteObject()
     {
 
     }

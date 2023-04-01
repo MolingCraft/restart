@@ -24,7 +24,7 @@ void Start()
 }
    public void randomCreate(int num)
     {
-
+/*
         for(int i=1;i<=num;i++)
         {
              CharaManager.Instance.CreateObject(prefab,tagname.Player);
@@ -32,7 +32,7 @@ void Start()
         for(int i=1;i<=num;i++)
         {
              CharaManager.Instance.CreateObject(prefab,tagname.Enemy);
-        }
+        }*/
     }
     public void me1()
     {

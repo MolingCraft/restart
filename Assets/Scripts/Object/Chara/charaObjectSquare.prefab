@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1087995568487202201}
   - component: {fileID: 3737769187839700934}
   - component: {fileID: 1186887300386357269}
+  - component: {fileID: -2352046720063142149}
   m_Layer: 0
   m_Name: charaObjectSquare
   m_TagString: Untagged
@@ -97,89 +98,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae2cbff1b4f8d04f9058546725fd67e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charaName: 
   charaData:
-    raceName: 
-    cost: 0
-    priority: 0
-    maxHP: 0
-    LockmaxHP: 0
-    curHP: 0
-    luck: 0
-    Lockluck: 0
+    charaName: 
+    introduction: 
+    HP: 0
     speed: 0
-    Lockspeed: 0
-    actionNum: 0
-    LockactionNum: 0
     defend: 0
-    Lockdefend: 0
-    attackShield: 0
-    LockattackShield: 0
-    maxEXP: 0
-    LockmaxEXP: 0
-    curEXP: 0
-    LockcurEXP: 0
-    maxLevel: 0
-    LockmaxLevel: 0
-    curLevel: 0
-    rewardNum: 0
-    LockrewardNum: 0
     size: 0
-    Locksize: 0
-    attackDamage: 0
-    LockattackDamage: 0
-    attackLineNum: 0
-    LockattackLineNum: 0
-    attackLineLength: 0
-    LockattackLineLength: 0
-    attackLineAngle: 0
-    LockattackLineAngle: 0
-    bulletNum: 0
-    LockbulletNum: 0
-    bulletpierceNum: 0
-    LockbulletpierceNum: 0
-  charaSprite: {fileID: 0}
-  equipmentData:
-    equipmentName: 
-    cost: 0
-    priority: 0
-    maxHP: 0
-    LockmaxHP: 0
-    curHP: 0
-    luck: 0
-    Lockluck: 0
-    speed: 0
-    Lockspeed: 0
-    actionNum: 0
-    LockactionNum: 0
-    defend: 0
-    Lockdefend: 0
-    attackShield: 0
-    LockattackShield: 0
-    maxEXP: 0
-    LockmaxEXP: 0
-    curEXP: 0
-    LockcurEXP: 0
-    maxLevel: 0
-    LockmaxLevel: 0
-    curLevel: 0
-    rewardNum: 0
-    LockrewardNum: 0
-    size: 0
-    Locksize: 0
-    attackDamage: 0
-    LockattackDamage: 0
-    attackLineNum: 0
-    LockattackLineNum: 0
-    attackLineLength: 0
-    LockattackLineLength: 0
-    attackLineAngle: 0
-    LockattackLineAngle: 0
-    bulletNum: 0
-    LockbulletNum: 0
-    bulletpierceNum: 0
-    LockbulletpierceNum: 0
-  equipSprite: {fileID: 0}
-  killNum: 0
-  walkNum: 0
-  survivalRound: 0
+    damage: 0
+    attackCD: 0
+  curHP: 0
+  charaStates: 0
+  charaVector: {x: 0, y: 0}
+  TraceIf: 0
+--- !u!114 &-2352046720063142149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6038227691827383316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 352ef7524c931714ba1bbef35ad96afe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarCanvas: {fileID: 0}
+  healthSliderPrefab: {fileID: 7972050244552070775, guid: 52e3ae11fc37af64f8059fd52bd2aec4, type: 3}
