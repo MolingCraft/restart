@@ -48,7 +48,7 @@ public class CharaObject : MonoBehaviour
     }
     private void Start() {
         thisRigid=this.transform.GetComponent<Rigidbody2D>();
-        traceDistance=1.2f;
+        traceDistance=0.2f;
         StartCoroutine(AttackCD());
     }
     private void FixedUpdate()
@@ -70,7 +70,7 @@ public class CharaObject : MonoBehaviour
         if(_FindObject==null)return;
         //避免过近
         float dis2=Vector2.Distance(this.transform.position,_FindObject.transform.position);
-        if(dis2<traceDistance)
+        if(dis2<traceDistance+charaData.attackRange)
         {
             //此间进行攻击
             CouldAttackIf=true;
@@ -168,7 +168,7 @@ public class CharaObject : MonoBehaviour
     {
         List<GameObject> ObjectList;
 
-        this.transform.gameObject.SetActive(false);
+        var obj=this.transform.gameObject;
 
         if(this.transform.tag==tagname.Player.ToString())
         {
@@ -183,7 +183,9 @@ public class CharaObject : MonoBehaviour
             ObjectList=CharaManager.Instance.enemyObjectList;
         }
 
-        ObjectList.Remove(this.transform.gameObject);
+        ObjectList.Remove(obj);
+        obj.SetActive(false);
+        CharaManager.Instance.CharaObjectPool.AddInPool(obj);
     }
 
 }

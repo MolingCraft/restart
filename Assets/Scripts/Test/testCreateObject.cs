@@ -15,6 +15,12 @@ public class testCreateObject : MonoBehaviour
         enemyObjectList=CharaManager.Instance.enemyObjectList;
 
 
+
+    }
+
+
+    public void wadfianfuihawf()
+    {
         CharaManager.Instance.CreateObject(CreateObjprefab,tagname.Player,new Vector3(-1,2,0));
         CharaManager.Instance.CreateObject(CreateObjprefab,tagname.Player,new Vector3(-1,0,0));
         CharaManager.Instance.CreateObject(CreateObjprefab,tagname.Player,new Vector3(-1,-2,0));
@@ -22,11 +28,5 @@ public class testCreateObject : MonoBehaviour
         CharaManager.Instance.CreateObject(CreateObjprefab,tagname.Enemy,new Vector3(1,2,0));
         CharaManager.Instance.CreateObject(CreateObjprefab,tagname.Enemy,new Vector3(1,0,0));
         CharaManager.Instance.CreateObject(CreateObjprefab,tagname.Enemy,new Vector3(1,-2,0));
-    }
-
-
-    void Update()
-    {
-        
     }
 }

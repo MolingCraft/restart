@@ -14,9 +14,6 @@ public int text1;
 public int text2;
 void Start()
 {
-    
-    charaobjFather=CharaManager.Instance.charaObjectfather;
-    enemyobjFather=CharaManager.Instance.enemyObjectfather;
 
     objlist=CharaManager.Instance.charaObjectList;
     enemylist=CharaManager.Instance.enemyObjectList;

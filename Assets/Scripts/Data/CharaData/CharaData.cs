@@ -20,6 +20,7 @@ public class CharaData
     public float defend;//防御
     public float size;//体型大小
     public float damage;//攻击力
+    public float attackRange;//攻击距离
     public float attackCD;//攻击CD
 
 }
