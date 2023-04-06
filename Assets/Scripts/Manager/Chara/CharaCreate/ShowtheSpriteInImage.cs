@@ -20,6 +20,7 @@ public class ShowtheSpriteInImage : MonoBehaviour
         if(ShowNum>=CharaCreateManager.Instance.GetSpriteListCount())ShowNum=0;
         ShowImage.sprite=CharaCreateManager.Instance.GetTheSprite(ShowNum);
         if(ShowImage2!=null)ShowImage2.sprite=ShowImage.sprite;
+        CharaCreateManager.Instance.SelectedSprite=ShowImage.sprite;
     }
     public void NextSprite(int num)
     {
@@ -27,6 +28,7 @@ public class ShowtheSpriteInImage : MonoBehaviour
         if(ShowNum>=CharaCreateManager.Instance.GetSpriteListCount())ShowNum=0;
         ShowImage.sprite=CharaCreateManager.Instance.GetTheSprite(ShowNum);
         if(ShowImage2!=null)ShowImage2.sprite=ShowImage.sprite;
+        CharaCreateManager.Instance.SelectedSprite=ShowImage.sprite;
     }
 
     public void PreviousSprite()
@@ -35,6 +37,7 @@ public class ShowtheSpriteInImage : MonoBehaviour
         if(ShowNum<0)ShowNum=CharaCreateManager.Instance.GetSpriteListCount()-1;
         ShowImage.sprite=CharaCreateManager.Instance.GetTheSprite(ShowNum);
         if(ShowImage2!=null)ShowImage2.sprite=ShowImage.sprite;
+        CharaCreateManager.Instance.SelectedSprite=ShowImage.sprite;
     }
     public void PreviousSprite(int num)
     {
@@ -42,6 +45,7 @@ public class ShowtheSpriteInImage : MonoBehaviour
         if(ShowNum<0)ShowNum=CharaCreateManager.Instance.GetSpriteListCount()-1;
         ShowImage.sprite=CharaCreateManager.Instance.GetTheSprite(ShowNum);
         if(ShowImage2!=null)ShowImage2.sprite=ShowImage.sprite;
+        CharaCreateManager.Instance.SelectedSprite=ShowImage.sprite;
     }
     public void SetSprite()
     {
@@ -49,6 +53,7 @@ public class ShowtheSpriteInImage : MonoBehaviour
         if(ShowNum>=CharaCreateManager.Instance.GetSpriteListCount())ShowNum=0;
         ShowImage.sprite=CharaCreateManager.Instance.GetTheSprite(ShowNum);
         if(ShowImage2!=null)ShowImage2.sprite=ShowImage.sprite;
+        CharaCreateManager.Instance.SelectedSprite=ShowImage.sprite;
     }
     public void SetSprite(int num)
     {
@@ -57,5 +62,6 @@ public class ShowtheSpriteInImage : MonoBehaviour
         if(ShowNum>=CharaCreateManager.Instance.GetSpriteListCount())ShowNum=0;
         ShowImage.sprite=CharaCreateManager.Instance.GetTheSprite(ShowNum);
         if(ShowImage2!=null)ShowImage2.sprite=ShowImage.sprite;
+        CharaCreateManager.Instance.SelectedSprite=ShowImage.sprite;
     }
 }

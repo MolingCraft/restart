@@ -30,6 +30,7 @@ public class CharaManager : Singleton<CharaManager>
     public List<GameObject> enemyObjectList=new List<GameObject>();
     //public Queue<GameObject> ObjectQuene;
 
+
     protected override void Awake()
     {
         base.Awake();
@@ -49,11 +50,22 @@ public class CharaManager : Singleton<CharaManager>
         //RaceList=archiveData.
     }
 
-    public void CreateObject(GameObject prefab,tagname tagname,Vector3 vec3)
-    {
-        Vector3 createPosition=new Vector3();
 
+/// <summary>
+/// 随机生成charadata类型的object
+/// </summary>
+/// <param name="tagname"></param>
+/// <param name="vec3"></param>
+/// <returns></returns>
+    public GameObject CreateObject(tagname tagname,Vector3 vec3)
+    {
+        var obj=CharaObjectPool.GetPooledObject();
+
+        Vector3 createPosition=vec3;
         List<GameObject> createObjList;
+
+        Vector3 objScale=new Vector3(1,1,1);
+
         if(tagname==tagname.Player)
         {
             createObjList=charaObjectList;
@@ -61,6 +73,7 @@ public class CharaManager : Singleton<CharaManager>
         else if(tagname==tagname.Enemy)
         {
             createObjList=enemyObjectList;
+            objScale=new Vector3(-objScale.x,objScale.y,objScale.z);
         }
         else
         {
@@ -72,10 +85,17 @@ public class CharaManager : Singleton<CharaManager>
         GameObject obj = (GameObject)GameObject.Instantiate(
                 prefab,vec3, Quaternion.identity, createObjFather.transform);*/
 
-        var obj=CharaObjectPool.GetPooledObject();
+
+        obj.GetComponent<CharaObject>().charaData=CharaCreateManager.Instance.CharaDataList[UnityEngine.Random.Range(0,CharaCreateManager.Instance.CharaDataList.Count)];
         obj.tag=tagname.ToString();
         createObjList.Add(obj);
         obj.SetActive(true);
+        obj.transform.position=createPosition;
+
+        objScale=objScale*obj.GetComponent<CharaObject>().charaData.size;
+        obj.transform.localScale=objScale;
+
+        return obj;
     }
     public void DeleteObject()
     {

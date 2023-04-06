@@ -11,7 +11,7 @@ public class TransitionManager : Singleton<TransitionManager>
 {
 
     private GameObject fadeCanvasPanel;
-    
+
     //Transition
     public GameObject fadeCanvasPrefab;
     public float fadeDuration;
@@ -33,15 +33,6 @@ public class TransitionManager : Singleton<TransitionManager>
         FadeWhenLoadinScene();
     }
 
-
-    void Update()
-    {
-        
-    }
-
-    
-
- 
     #region 场景淡入效果void FadeWhenLoadinScene()
 
     public void FadeWhenLoadinScene()

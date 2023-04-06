@@ -6,8 +6,7 @@ namespace SelfMadeNamespaceTool
 
     class DataTool
     {
-   
-        
+
         public static string GetSaveDataPath()
         {
             return Application.dataPath + "/SaveData/";
@@ -17,6 +16,10 @@ namespace SelfMadeNamespaceTool
         {
             return Application.dataPath + "/SaveData/ArchiveData/";
         }
+
+        public static string GetPngDataPath()
+        {
+            return Application.dataPath + "/PngData/";
+        }
     }
-    
 }

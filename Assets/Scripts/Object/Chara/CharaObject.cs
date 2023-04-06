@@ -19,15 +19,16 @@ public enum tagname
 public class CharaObject : MonoBehaviour
 {
     public CharaData charaData;//角色数据
+    public GameObject WeaponObject;//武器Object
     public float curHP;//当前HP
-    public States charaStates;//角色当前状态
+    //public Sprite charaSprite;
 
-
+    public Vector3 ResetPosition;
     public bool TraceIf;
     /// <summary>
 /// 追踪时停止的间距
 /// </summary>
-    public float traceDistance;
+    public float traceStartDistance;
 
     public delegate void VoidDelegate();
 
@@ -48,7 +49,9 @@ public class CharaObject : MonoBehaviour
     }
     private void Start() {
         thisRigid=this.transform.GetComponent<Rigidbody2D>();
-        traceDistance=0.2f;
+        traceStartDistance=0.2f;
+        WeaponObject.GetComponent<WeaponObject>().owncharaObject=this;
+        WeaponObject.GetComponent<WeaponObject>().weaponData=new Weapon_Sword_1();
         StartCoroutine(AttackCD());
     }
     private void FixedUpdate()
@@ -56,6 +59,14 @@ public class CharaObject : MonoBehaviour
         if(TraceIf)Trace();
     }
 
+
+
+    public void ResetWhenAttackStart()
+    {
+        this.transform.gameObject.SetActive(true);
+        this.transform.position=ResetPosition;
+        curHP=charaData.HP;
+    }
     void Trace()//追踪
     {
         if(this.transform.tag=="Player")
@@ -70,7 +81,7 @@ public class CharaObject : MonoBehaviour
         if(_FindObject==null)return;
         //避免过近
         float dis2=Vector2.Distance(this.transform.position,_FindObject.transform.position);
-        if(dis2<traceDistance+charaData.attackRange)
+        if(dis2<traceStartDistance+charaData.attackRange)
         {
             //此间进行攻击
             CouldAttackIf=true;
@@ -98,7 +109,8 @@ public class CharaObject : MonoBehaviour
 
     void Action_Attack(GameObject attackObject)
     {
-        attackObject.GetComponent<CharaObject>().Action_Hit(charaData.damage);
+        //attackObject.GetComponent<CharaObject>().Action_Hit(charaData.damage);
+        WeaponObject.GetComponent<WeaponObject>().Action_Attack();
     }
 
 

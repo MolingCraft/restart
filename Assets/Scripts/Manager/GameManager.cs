@@ -28,6 +28,10 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
         string folder = SelfMadeNamespaceTool.DataTool.GetArchiveDataPath();
         if (!File.Exists(folder)) Directory.CreateDirectory(folder);//检测并创建存档文件夹
+
+        string pngfolder=SelfMadeNamespaceTool.DataTool.GetPngDataPath();
+        if (!File.Exists(pngfolder)) Directory.CreateDirectory(pngfolder);//检测并创建存档文件夹
+
         OnStartSettingLoad();//加载游戏设置
 
 

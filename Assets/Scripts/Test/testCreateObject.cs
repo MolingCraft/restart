@@ -21,12 +21,13 @@ public class testCreateObject : MonoBehaviour
 
     public void wadfianfuihawf()
     {
-        CharaManager.Instance.CreateObject(CreateObjprefab,tagname.Player,new Vector3(-1,2,0));
-        CharaManager.Instance.CreateObject(CreateObjprefab,tagname.Player,new Vector3(-1,0,0));
-        CharaManager.Instance.CreateObject(CreateObjprefab,tagname.Player,new Vector3(-1,-2,0));
+        //CharaManager.Instance.CreateObject(CreateOprefab,tagname.Player,new Vector3(-1,2,0));
+        CharaManager.Instance.CreateObject(tagname.Player,new Vector3(-1,2,0));
+        CharaManager.Instance.CreateObject(tagname.Player,new Vector3(-1,0,0));
+        CharaManager.Instance.CreateObject(tagname.Player,new Vector3(-1,-2,0));
 
-        CharaManager.Instance.CreateObject(CreateObjprefab,tagname.Enemy,new Vector3(1,2,0));
-        CharaManager.Instance.CreateObject(CreateObjprefab,tagname.Enemy,new Vector3(1,0,0));
-        CharaManager.Instance.CreateObject(CreateObjprefab,tagname.Enemy,new Vector3(1,-2,0));
+        CharaManager.Instance.CreateObject(tagname.Enemy,new Vector3(1,2,0));
+        CharaManager.Instance.CreateObject(tagname.Enemy,new Vector3(1,0,0));
+        CharaManager.Instance.CreateObject(tagname.Enemy,new Vector3(1,-2,0));
     }
 }

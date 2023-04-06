@@ -56,7 +56,6 @@ public class MenuManager : Singleton<MenuManager>
                 if (PauseMenuPanel.activeInHierarchy) PauseMenuPanel.SetActive(false);
                 else PauseMenuPanel.SetActive(true);
             }
-            
 
         }
     }

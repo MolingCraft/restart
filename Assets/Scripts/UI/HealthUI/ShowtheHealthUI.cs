@@ -18,9 +18,10 @@ private Camera cam;
     private void Start()
     {
         healthBarCanvas = GameObject.Find("HealthBarCanvas");
-        DontDestroyOnLoad(healthBarCanvas);
+        if(healthBarCanvas==null)this.enabled=false;
         yChange=1f;
         cam=GameObject.Find("Main Camera").GetComponent<Camera>();
+
         healthBar=Instantiate(healthSliderPrefab, healthBarCanvas.transform);//生成血条预制体
 
     }

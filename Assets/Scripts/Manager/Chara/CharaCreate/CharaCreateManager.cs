@@ -7,7 +7,7 @@ public class CharaCreateManager : Singleton<CharaCreateManager>
     public Sprite SelectedSprite;
     public CharaData SelectedCharaData;
 
-    [Header("角色列表")]
+    [Header("角色列表")]//初始模板
     public List<Sprite> SpriteList=new List<Sprite>();
     public List<CharaData> CharaDataList=new List<CharaData>();
 
@@ -16,6 +16,8 @@ public class CharaCreateManager : Singleton<CharaCreateManager>
     public GameObject ButtonPrefab;//按钮预制体
     public Image ShowImage;//另一个显示图
 
+
+/*
     [Space(5)]//添加间距
 
     [Header("种族与武器文件")]
