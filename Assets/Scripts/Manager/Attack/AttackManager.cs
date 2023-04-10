@@ -77,11 +77,7 @@ public class AttackManager : Singleton<AttackManager>
 
         CharaTraceChange(false);
         AttackStartIf=false;
-        TransitionManager.Instance.TransitionTo("RestScene");
-        foreach(GameObject obj in charaObjectList)
-        {
-            obj.transform.position=new Vector3(0,0,-50);
-        }
+        MenuManager.Instance.AttackVictory();
     }
     public void EndAttackGame()
     {

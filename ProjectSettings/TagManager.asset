@@ -42,3 +42,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Draw
+    uniqueID: 629987701
+    locked: 0

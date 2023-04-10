@@ -13,6 +13,7 @@ public class MenuManager : Singleton<MenuManager>
     public GameObject SettingsMenuPanel;//设置UI窗口
     public GameObject ArchiveMenuPanel;//存档UI窗口
     public GameObject PauseMenuPanel;//暂停UI窗口
+    public GameObject VictoryMennuPanel;//战斗胜利UI窗口
     public GameObject DeathMenuPanel;//死亡UI窗口
 
     //存档部分
@@ -32,7 +33,7 @@ public class MenuManager : Singleton<MenuManager>
     }
     void Start()
     {
-
+        DontDestroyOnLoad(this);
         SettingsMenuPanel.SetActive(false);
         ArchiveMenuPanel.SetActive(false);
 
@@ -63,6 +64,12 @@ public class MenuManager : Singleton<MenuManager>
     #endregion
 
 
+    public void AttackVictory()
+    {
+        VictoryMennuPanel.SetActive(true);
+        //Debug.Log(VictoryMennuPanel.activeSelf);
+        VictoryMennuPanel.GetComponent<VictoryMenu>().VictoryAction();
+    }
     #region 存档部分
     public void ArchiveLoad()
     {
