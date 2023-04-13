@@ -16,6 +16,11 @@ public class ArchiveButton : MonoBehaviour
 
     }
 
+    public void ChangetheName(int num)
+    {
+        ArchiveName = this.name.Replace("(Clone)", "");
+        Archivetext.text = "存档"+num.ToString();
+    }
     public void ChangetheName()
     {
         string name2 = this.name.Replace("(Clone)", "");

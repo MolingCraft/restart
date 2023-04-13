@@ -196,8 +196,9 @@ public class CharaObject : MonoBehaviour
         }
 
         ObjectList.Remove(obj);
-        obj.SetActive(false);
-        CharaManager.Instance.CharaObjectPool.AddInPool(obj);
+        Destroy(obj);
+        //obj.SetActive(false);
+        //CharaManager.Instance.CharaObjectPool.AddInPool(obj);
     }
 
 }

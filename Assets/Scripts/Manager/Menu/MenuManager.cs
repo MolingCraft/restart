@@ -90,7 +90,7 @@ public class MenuManager : Singleton<MenuManager>
                 archive.name = files[i].Name;
 
 
-                archive.GetComponent<ArchiveButton>().ChangetheName();
+                archive.GetComponent<ArchiveButton>().ChangetheName(_NowArchiveNum);
             }
 
         }
@@ -112,7 +112,7 @@ public class MenuManager : Singleton<MenuManager>
         //ArchivePrefab.name = archivename + ".sav";
         GameObject archive = (GameObject)GameObject.Instantiate(ArchivePrefab, this.transform.position, Quaternion.identity, archiveContent.transform);
         archive.name = archivename + ".sav";
-        archive.GetComponent<ArchiveButton>().ChangetheName();
+        archive.GetComponent<ArchiveButton>().ChangetheName(_NowArchiveNum);
     }
     #endregion
 }
