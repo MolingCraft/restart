@@ -17,6 +17,18 @@ public class DrawingManager : Singleton<DrawingManager>
     public Slider RedSlider;
     public Slider GreenSlider;
     public Slider BlueSlider;
+
+    [Header("读取显示图片")]
+    public Image SelectedImage;
+    public CharaData SelectedCharaData;
+
+
+
+    public GameObject ShowContent;//生成按钮的父物体
+    public GameObject ContentPrefab;//按钮预制体
+
+    public List<Sprite> SpriteList=new List<Sprite>();
+    public List<CharaData> CharaDataList=new List<CharaData>();
     int num = 0;//总共画画点数
     public Color color;
 	// Use this for initialization
@@ -25,13 +37,25 @@ public class DrawingManager : Singleton<DrawingManager>
         RedSlider.value=0f;
         GreenSlider.value=0f;
         BlueSlider.value=0f;
+
+        /*
+        foreach(Sprite sprite in CharaCreateManager.Instance.SpriteList)
+        {
+            SpriteList.Add(sprite);
+        }
+        foreach(CharaData charaData in CharaCreateManager.Instance.CharaDataList)
+        {
+            CharaDataList.Add(charaData);
+        }*/
+        ContentPrefab.GetComponent<ShowtheSprite>().SpriteList=this.SpriteList;
+        ContentPrefab.GetComponent<ShowtheSprite>().SelectedImage=this.SelectedImage;
+
+        PngLoad();
+        PngShow();
+
 	}
                 // Update is called once per frame
     void Update () {
-        if (Input.GetMouseButtonDown(0))
-            {
-                Debug.Log(Input.mousePosition);
-            }
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
         if (hit.collider != null)
@@ -120,87 +144,6 @@ IEnumerator SaveDrawing()
     string filePath = Path.Combine(SelfMadeNamespaceTool.DataTool.GetPngDataPath(), "drawing.png");
     File.WriteAllBytes(filePath, bytes);
 }
-/*
-IEnumerator SaveDrawing()
-{
-    // 等待帧绘制完成
-    yield return new WaitForEndOfFrame();
-
-    // 获取画布大小
-    int canvasWidth = Screen.width;
-    int canvasHeight = Screen.height;
-
-    // 创建RenderTexture对象
-    drawingTexture = new RenderTexture(canvasWidth, canvasHeight, 24);
-    drawingCamera.targetTexture = drawingTexture;
-
-    // 渲染线条
-    drawingCamera.Render();
-
-    // 激活RenderTexture
-    RenderTexture.active = drawingTexture;
-
-    // 创建Texture2D对象
-    Texture2D texture = new Texture2D(canvasWidth, canvasHeight);
-
-    // 读取画布像素数据
-    texture.ReadPixels(new Rect(0, 0, canvasWidth, canvasHeight), 0, 0);
-    texture.Apply();
-
-    // 将Texture2D对象转换为PNG格式的字节数组
-    byte[] pngData = texture.EncodeToPNG();
-
-    // 保存PNG文件
-    string filePath = Path.Combine(Application.dataPath, "drawing.png");
-    File.WriteAllBytes(filePath, pngData);
-
-    // 重置状态
-    RenderTexture.active = null;
-}*/
-
-}
-
-
-
-
-
-
-
-
-    /*
-    public Image SelectedImage;
-    public CharaData SelectedCharaData;
-
-
-
-    public GameObject ShowContent;//生成按钮的父物体
-    public GameObject ContentPrefab;//按钮预制体
-
-    public List<Sprite> SpriteList=new List<Sprite>();
-    public List<CharaData> CharaDataList=new List<CharaData>();
-    void Start()
-    {
-        /*
-        foreach(Sprite sprite in CharaCreateManager.Instance.SpriteList)
-        {
-            SpriteList.Add(sprite);
-        }
-        foreach(CharaData charaData in CharaCreateManager.Instance.CharaDataList)
-        {
-            CharaDataList.Add(charaData);
-        }*//*
-        ContentPrefab.GetComponent<ShowtheSprite>().SpriteList=this.SpriteList;
-        ContentPrefab.GetComponent<ShowtheSprite>().SelectedImage=this.SelectedImage;
-
-        PngLoad();
-        //PngShow();
-    }
-
-    void Update()
-    {
-
-    }
-
 
     public void PngLoad()
     {
@@ -239,4 +182,3 @@ IEnumerator SaveDrawing()
     }
 
 }
-*/
