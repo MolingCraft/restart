@@ -12,14 +12,26 @@ public class DrawingManager : Singleton<DrawingManager>
     Material mat;
     public bool SuctionTubeIf;//吸管功能
     public Slider slider;
+
+    [Header("颜色滑动条")]
+    public Slider RedSlider;
+    public Slider GreenSlider;
+    public Slider BlueSlider;
     int num = 0;//总共画画点数
     public Color color;
 	// Use this for initialization
 	void Start () {
         slider.value = 0.1f;
+        RedSlider.value=0f;
+        GreenSlider.value=0f;
+        BlueSlider.value=0f;
 	}
                 // Update is called once per frame
     void Update () {
+        if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log(Input.mousePosition);
+            }
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
         if (hit.collider != null)
@@ -34,6 +46,7 @@ public class DrawingManager : Singleton<DrawingManager>
                 {
                     return;
                 }
+                color=new Color32((byte)RedSlider.value,(byte)GreenSlider.value,(byte)BlueSlider.value,(byte)color.a);
                 GameObject obj = new GameObject();
                 line= obj.AddComponent<LineRenderer>();
                 line.material.color= color;
@@ -86,10 +99,18 @@ IEnumerator SaveDrawing()
     /*
     获取名为DrawArea的gameobject的长和宽作为保存区域
     */
-    int canvasWidth = Screen.width;
-    int canvasHeight = Screen.height;
-    Texture2D texture = new Texture2D(canvasWidth, canvasHeight, TextureFormat.RGB24, false);
-    texture.ReadPixels(new Rect(0,0, canvasWidth, canvasHeight), 0, 0);
+    var pos=DrawArea.transform.position;
+    var boundsize=DrawArea.GetComponent<SpriteRenderer>().bounds.size;
+    var pos2=Camera.main.WorldToScreenPoint(new Vector3(pos.x+boundsize.x/2,pos.y+boundsize.y/2,0));
+    pos=Camera.main.WorldToScreenPoint(new Vector3(pos.x-boundsize.x/2,pos.y-boundsize.y/2,0));
+
+    // 获取画布大小
+    int canvasWidth =(int)(pos2.x-pos.x);
+    int canvasHeight =(int)(pos2.y-pos.y);
+
+    Texture2D texture = new Texture2D(canvasWidth,canvasHeight, TextureFormat.RGB24, false);
+    //texture.ReadPixels(new Rect(530,320, canvasWidth, canvasHeight), 0, 0);
+    texture.ReadPixels(new Rect(pos.x,pos.y, canvasWidth, canvasHeight), 0, 0);
     texture.Apply();
 
 
