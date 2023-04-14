@@ -173,7 +173,8 @@ public class CharaObject : MonoBehaviour
     public void Action_Hit(float attack)//受伤
     {
         curHP-=attack;
-        if(curHP<=0)Invoke("action_Death",0.1f);
+        if(curHP<=0)action_Death();
+        //Invoke("action_Death",0.1f);
     }
 
     public void action_Death()//死亡
@@ -196,9 +197,8 @@ public class CharaObject : MonoBehaviour
         }
 
         ObjectList.Remove(obj);
-        Destroy(obj);
-        //obj.SetActive(false);
-        //CharaManager.Instance.CharaObjectPool.AddInPool(obj);
+        obj.SetActive(false);
+        CharaManager.Instance.CharaObjectPool.AddInPool(obj);
     }
 
 }

@@ -51,12 +51,33 @@ public class AttackManager : Singleton<AttackManager>
         {
             EndBattle();
         }
+        for(int i=0;i<charaObjectList.Count;i++)
+        {
+            if(charaObjectList[i].GetComponent<CharaObject>().curHP<=0)
+            {
+                charaObjectList[i].GetComponent<CharaObject>().action_Death();
+                i--;
+            }
+        }
+        for(int i=0;i<enemyObjectList.Count;i++)
+        {
+            if(enemyObjectList[i].GetComponent<CharaObject>().curHP<=0)
+            {
+                enemyObjectList[i].GetComponent<CharaObject>().action_Death();
+                i--;
+            }
+        }
     }
 
 
     public void StartAttackGame()
     {
         foreach(GameObject obj in charaObjectList)
+        {
+            obj.GetComponent<CharaObject>().ResetWhenAttackStart();
+            //obj.GetComponentInChildren<WeaponObject>().End_sway();
+        }
+        foreach(GameObject obj in enemyObjectList)
         {
             obj.GetComponent<CharaObject>().ResetWhenAttackStart();
             //obj.GetComponentInChildren<WeaponObject>().End_sway();
@@ -77,11 +98,22 @@ public class AttackManager : Singleton<AttackManager>
 
         CharaTraceChange(false);
         AttackStartIf=false;
+        GameManager.Instance.difficult=GameManager.Instance.difficult+GameManager.Instance.difficult/2;
         MenuManager.Instance.AttackVictory();
     }
     public void EndAttackGame()
     {
+        GameManager.Instance.difficult=0;
         //if(Event_AttackGame_End!=null)Event_AttackGame_End();
+        AttackStartIf=false;
+        while(charaObjectList.Count!=0)
+        {
+            charaObjectList[charaObjectList.Count-1].GetComponent<CharaObject>().action_Death();
+        }
+        while(enemyObjectList.Count!=0)
+        {
+            enemyObjectList[enemyObjectList.Count-1].GetComponent<CharaObject>().action_Death();
+        }
         MenuManager.Instance.DeathMenuPanel.SetActive(true);
     }
 

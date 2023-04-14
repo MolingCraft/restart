@@ -17,10 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CharaCreateScene.unity
     guid: f30e82d3f69b20b4daa326b9f86e0805
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/RestScene.unity
     guid: c090aaccdce7801439a063e474bbd351
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ShopScene.unity
     guid: 88235094ad08db34a9862632260f6931
   m_configObjects: {}

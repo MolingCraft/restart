@@ -25,20 +25,20 @@ public class WeaponObject : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         Vector3 vec3=startPostion+owncharaObject.transform.position;
         this.transform.position=vec3;
     }
 
-    public void Action_Attack()
+    public virtual void Action_Attack()
     {
         Attack_Rotate();
         this.GetComponent<Collider2D>().enabled=true;
     }
 
 
-    public void Attack_Rotate()
+    public virtual void Attack_Rotate()
     {
         transform.rotation = weaponData.InitialRotation;
         if (TryGetComponent(out ObjectSwayOverTime component))
@@ -49,12 +49,12 @@ public class WeaponObject : MonoBehaviour
     }
 
 
-    public void End_sway()
+    public virtual void End_sway()
     {
         StopCoroutine(AttackSway());
     }
 
-    private IEnumerator AttackSway()
+    public virtual IEnumerator AttackSway()
     {
             float elapsedTime = 0f;
             Quaternion startRotation = transform.rotation;
@@ -97,7 +97,7 @@ public class WeaponObject : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other) {
+    public virtual void OnTriggerEnter2D(Collider2D other) {
         if(other.transform.TryGetComponent(out CharaObject charaObject))
         {
             weaponData.Action_Attack(this,charaObject);

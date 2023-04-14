@@ -5,18 +5,21 @@ using System.IO;
 using UnityEngine.UI;
 public class DrawingManager : Singleton<DrawingManager>
 {
+    public GameObject dataCreatePanel;
     public Camera drawingCamera;
     public RenderTexture drawingTexture;
     public GameObject DrawArea;
     LineRenderer line;
     Material mat;
     public bool SuctionTubeIf;//吸管功能
-    public Slider slider;
+
+    public List<GameObject> LineList=new List<GameObject>();
 
     [Header("颜色滑动条")]
     public Slider RedSlider;
     public Slider GreenSlider;
     public Slider BlueSlider;
+    public Slider slider;
 
     [Header("读取显示图片")]
     public Image SelectedImage;
@@ -31,47 +34,50 @@ public class DrawingManager : Singleton<DrawingManager>
     public List<CharaData> CharaDataList=new List<CharaData>();
     int num = 0;//总共画画点数
     public Color color;
+
+    private List<GameObject> buttonList=new List<GameObject>();
+
+
+    private string PngDataPath;
 	// Use this for initialization
 	void Start () {
+        PngDataPath=SelfMadeNamespaceTool.DataTool.GetPngDataPath()+GameManager.Instance.ArchiveName;
+
         slider.value = 0.1f;
         RedSlider.value=0f;
         GreenSlider.value=0f;
         BlueSlider.value=0f;
+        LineList=new List<GameObject>();
 
-        /*
-        foreach(Sprite sprite in CharaCreateManager.Instance.SpriteList)
-        {
-            SpriteList.Add(sprite);
-        }
-        foreach(CharaData charaData in CharaCreateManager.Instance.CharaDataList)
-        {
-            CharaDataList.Add(charaData);
-        }*/
         ContentPrefab.GetComponent<ShowtheSprite>().SpriteList=this.SpriteList;
         ContentPrefab.GetComponent<ShowtheSprite>().SelectedImage=this.SelectedImage;
-
         PngLoad();
-        PngShow();
 
 	}
                 // Update is called once per frame
     void Update () {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
-        if (hit.collider != null)
+        if (hit.collider != null)//当鼠标位于画框内时
         {
-            if (SuctionTubeIf && Input.GetMouseButtonDown(0))
-            {
-                StartCoroutine(SuctionTubeChangeColor());
-            }
             if (Input.GetMouseButtonDown(0))
             {
-                if (color==null)
+                if (SuctionTubeIf)//吸管功能如果开启
+                {
+                    StartCoroutine(SuctionTubeChangeColor());//吸色
+                    return;
+                }
+                else if (color==null)//如果颜色为null，直接返回
                 {
                     return;
                 }
-                color=new Color32((byte)RedSlider.value,(byte)GreenSlider.value,(byte)BlueSlider.value,(byte)color.a);
-                GameObject obj = new GameObject();
+                else
+                {
+                    color=new Color32((byte)RedSlider.value,(byte)GreenSlider.value,(byte)BlueSlider.value,(byte)color.a);//通过拖动条获得当前颜色
+                }
+
+                GameObject obj = new GameObject();//线条object
+                LineList.Add(obj);
                 line= obj.AddComponent<LineRenderer>();
                 line.material.color= color;
                 line.widthMultiplier = slider.value;//宽度
@@ -79,7 +85,7 @@ public class DrawingManager : Singleton<DrawingManager>
                 line.SetPosition(1, hit.point);
                 num = 0;
                 line.sortingLayerName = "Draw";
-                line.sortingOrder = 0;
+                line.sortingOrder = LineList.Count;
                 line.gameObject.layer=3;
             }
             if (Input.GetMouseButton(0))
@@ -91,6 +97,22 @@ public class DrawingManager : Singleton<DrawingManager>
             }
         }
 	}
+    public void ClearAllLine()
+    {
+        while(LineList.Count!=0)
+        {
+            var obj=LineList[LineList.Count-1];
+            LineList.Remove(obj);
+            Destroy(obj);
+        }
+    }
+    public void Revocation()
+    {
+        if(LineList.Count==0)return;
+        var obj=LineList[LineList.Count-1];
+            LineList.Remove(obj);
+            Destroy(obj);
+    }
 
     public void SuctionTube()
     {
@@ -105,17 +127,23 @@ public class DrawingManager : Singleton<DrawingManager>
             texture2D.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
             texture2D.Apply();
             color = texture2D.GetPixel((int)Input.mousePosition.x, (int)Input.mousePosition.y);
+            RedSlider.value=color.r*255;
+            GreenSlider.value=color.g*255;
+            BlueSlider.value=color.b*255;
             SuctionTubeIf=false;
         }
     }
 
+/// <summary>
+/// 保存画作
+/// </summary>
     public void SaveDraw()
 {
     StartCoroutine(SaveDrawing());
 }
 
 
-IEnumerator SaveDrawing()
+IEnumerator SaveDrawing()//保存
 {
     // 等待帧绘制完成
     yield return new WaitForEndOfFrame();
@@ -134,23 +162,36 @@ IEnumerator SaveDrawing()
 
     Texture2D texture = new Texture2D(canvasWidth,canvasHeight, TextureFormat.RGB24, false);
     //texture.ReadPixels(new Rect(530,320, canvasWidth, canvasHeight), 0, 0);
-    texture.ReadPixels(new Rect(pos.x,pos.y, canvasWidth, canvasHeight), 0, 0);
+    texture.ReadPixels(new Rect(pos.x+1,pos.y, canvasWidth, canvasHeight), 0, 0);
     texture.Apply();
 
 
     byte[] bytes = texture.EncodeToPNG();
 
     // 保存PNG文件
-    string filePath = Path.Combine(SelfMadeNamespaceTool.DataTool.GetPngDataPath(), "drawing.png");
+    string filePath = Path.Combine(PngDataPath, "Drawing"+SpriteList.Count.ToString()+".png");
     File.WriteAllBytes(filePath, bytes);
+
+
+    //加入spriteList
+    Texture2D tex = new Texture2D(2, 2);
+    tex.LoadImage(bytes);
+    Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+    SpriteList.Add(sprite);
+
+    var obj=Instantiate(ContentPrefab,new Vector3(0,0,0),Quaternion.identity,ShowContent.transform);
+    obj.GetComponent<ShowtheSprite>().newSetSprite(SpriteList.Count);
+
+    CharaManager.Instance.CharaSpriteList.Add(sprite);
+    CharaManager.Instance.CharaDataList.Add(dataCreatePanel.GetComponent<DataCreatePanel>().DataCreate());
 }
 
     public void PngLoad()
     {
-        //获取指定路径下面的所有资源文件  然后进行删除
-        if (Directory.Exists(SelfMadeNamespaceTool.DataTool.GetPngDataPath()))
+        //获取指定路径下面的所有资源文件
+        if (Directory.Exists(PngDataPath))
         {
-            DirectoryInfo direction = new DirectoryInfo(SelfMadeNamespaceTool.DataTool.GetPngDataPath());
+            DirectoryInfo direction = new DirectoryInfo(PngDataPath);
             FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
 
             for (int i = 0; i < files.Length; i++)
@@ -169,15 +210,11 @@ IEnumerator SaveDrawing()
 
         }
 
-    }
 
-
-    public void PngShow()
-    {
         for(int i=0;i<SpriteList.Count;i++)
         {
             var obj=Instantiate(ContentPrefab,new Vector3(0,0,0),Quaternion.identity,ShowContent.transform);
-            obj.GetComponent<ShowtheSprite>().SetSprite(i);
+            obj.GetComponent<ShowtheSprite>().newSetSprite(i);
         }
     }
 

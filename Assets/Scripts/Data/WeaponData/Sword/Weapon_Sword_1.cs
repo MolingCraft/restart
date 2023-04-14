@@ -18,6 +18,6 @@ public class Weapon_Sword_1 : WeaponData
     public override void Action_Attack(WeaponObject weaponObject,CharaObject charaObject)
     {
         if(charaObject.tag!=weaponObject.owncharaObject.tag)
-        charaObject.Action_Hit(weaponObject.owncharaObject.charaData.damage);
+        charaObject.Action_Hit(weaponObject.owncharaObject.charaData.attackdamage);
     }
 }

@@ -17,11 +17,11 @@ public class VictoryMenu : MonoBehaviour
     }
     public void Transition()
     {
-        TransitionManager.Instance.TransitionTo("RestScene");
+        TransitionManager.Instance.TransitionTo("MainScene");
         List<GameObject> charaObjectList=CharaManager.Instance.charaObjectList;
         foreach(GameObject obj in charaObjectList)
         {
-            obj.transform.position=new Vector3(0,0,-50);
+            obj.transform.position=new Vector3(0,0,0);
         }
         this.transform.gameObject.SetActive(false);
     }

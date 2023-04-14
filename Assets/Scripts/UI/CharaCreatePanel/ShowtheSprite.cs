@@ -21,8 +21,7 @@ public class ShowtheSprite : MonoBehaviour
         ShowNum++;
         if(ShowNum>=SpriteList.Count)ShowNum=0;
 
-        ShowImage.sprite=SpriteList[ShowNum];
-        SelectedImage.sprite=ShowImage.sprite;
+        ShowSprite();
     }
 
 
@@ -31,8 +30,7 @@ public class ShowtheSprite : MonoBehaviour
         ShowNum--;
         if(ShowNum<0)ShowNum=SpriteList.Count-1;
 
-        ShowImage.sprite=SpriteList[ShowNum];
-        SelectedImage.sprite=ShowImage.sprite;
+        ShowSprite();
     }
 
     public void SetSprite()
@@ -40,8 +38,7 @@ public class ShowtheSprite : MonoBehaviour
         if(ShowNum<0)ShowNum=SpriteList.Count-1;
         if(ShowNum>=SpriteList.Count)ShowNum=0;
 
-        ShowImage.sprite=SpriteList[ShowNum];
-        SelectedImage.sprite=ShowImage.sprite;
+        ShowSprite();
     }
     public void SetSprite(int num)
     {
@@ -49,10 +46,20 @@ public class ShowtheSprite : MonoBehaviour
         if(ShowNum<0)ShowNum=0;
         if(ShowNum>=SpriteList.Count)ShowNum=SpriteList.Count-1;
 
+        ShowSprite();
+    }
+    public void newSetSprite(int num)
+    {
+        ShowNum=num;
+        if(ShowNum<0)ShowNum=0;
+        if(ShowNum>=SpriteList.Count)ShowNum=SpriteList.Count-1;
+        ShowImage.sprite=SpriteList[ShowNum];
+    }
+    private void ShowSprite()
+    {
         ShowImage.sprite=SpriteList[ShowNum];
         SelectedImage.sprite=ShowImage.sprite;
     }
-
 
 
 

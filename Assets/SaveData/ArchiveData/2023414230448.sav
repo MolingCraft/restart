@@ -1,0 +1,45 @@
+{
+  "introductionif": true,
+  "CharaDataList": [
+    {
+      "charaName": "1",
+      "HP": 5.0,
+      "speed": 2.0,
+      "defend": 1.0,
+      "size": 1.0,
+      "attackdamage": 1.0,
+      "attackRange": 1.0,
+      "attackCD": 1.0
+    },
+    {
+      "charaName": "2",
+      "HP": 7.0,
+      "speed": 1.5,
+      "defend": 1.0,
+      "size": 1.0,
+      "attackdamage": 2.0,
+      "attackRange": 1.0,
+      "attackCD": 1.0
+    },
+    {
+      "charaName": "3",
+      "HP": 10.0,
+      "speed": 1.5,
+      "defend": 1.0,
+      "size": 1.0,
+      "attackdamage": 1.0,
+      "attackRange": 1.0,
+      "attackCD": 1.0
+    },
+    {
+      "charaName": "4",
+      "HP": 7.0,
+      "speed": 1.2,
+      "defend": 1.0,
+      "size": 1.0,
+      "attackdamage": 3.0,
+      "attackRange": 1.0,
+      "attackCD": 0.8
+    }
+  ]
+}

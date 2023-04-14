@@ -54,14 +54,14 @@ public class CameraControl : MonoBehaviour
     {
         if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {
-            if (EventSystem.current.IsPointerOverGameObject()) return;
+            //if (EventSystem.current.IsPointerOverGameObject()) return;
             //限制size大小    
             Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, ZoomMinNum, ZoomMaxNum);
             //滚轮改变    
             Camera.main.orthographicSize = Camera.main.orthographicSize - Input.GetAxis("Mouse ScrollWheel") * MouseZoomSpeed;
         }
 
-        if (EventSystem.current.IsPointerOverGameObject()) return;//如果鼠标在某个物体上则不执行以下操作
+        //if (EventSystem.current.IsPointerOverGameObject()) return;//如果鼠标在某个物体上则不执行以下操作
 
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
@@ -74,7 +74,6 @@ public class CameraControl : MonoBehaviour
 
         if (Input.GetMouseButton(2))
         {
-            
             
             gameObject.transform.position = new Vector3(
                 xnum, 

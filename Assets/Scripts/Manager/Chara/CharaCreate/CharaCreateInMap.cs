@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class CharaCreateInMap : MonoBehaviour
 {
+    public int charaNum;
     public GameObject selectedObj;
     bool ChooseNow;
     private void Update()
@@ -26,10 +27,13 @@ public class CharaCreateInMap : MonoBehaviour
     {
         Vector3 vec3=Input.mousePosition;
         vec3.z=0;
-        var obj=CharaManager.Instance.CreateObject(tagname.Player,vec3);
+
+        var Datanum=CharaCreateManager.Instance.SelectedCharaData;
+
+        var obj=CharaManager.Instance.CreateObject(tagname.Player,vec3,Datanum);
         obj.SetActive(true);
         obj.GetComponent<SpriteRenderer>().sprite=CharaCreateManager.Instance.SelectedSprite;
-        //obj.GetComponent<CharaObject>().charaData=CharaCreateManager.Instance.SelectedCharaData;
+
 //改成obj后再传递会导致出问题，血条没了
 
         selectedObj=obj;
@@ -41,5 +45,9 @@ public class CharaCreateInMap : MonoBehaviour
         Vector3 vec3=Camera.main.ScreenToWorldPoint(Input.mousePosition);
         vec3.z=0;
         selectedObj.transform.position=vec3;
+    }
+    public void difficultadd()
+    {
+        GameManager.Instance.difficult++;
     }
 }

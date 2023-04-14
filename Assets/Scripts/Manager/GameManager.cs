@@ -9,6 +9,7 @@ using System;
 
 public class GameManager : Singleton<GameManager>
 {
+    public int difficult;
     public static SettingData settingData;
 
     private string _ArchiveName;//当前加载存档的名字，编辑器中不应修改，所以用了private
@@ -54,6 +55,7 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
+        difficult=0;
         DontDestroyOnLoad(this);
     }
 
@@ -109,7 +111,7 @@ public class GameManager : Singleton<GameManager>
 
     #region SaveLoad
 
-    public void Save()//保存数据
+    public void Save()//保存数据,我在TransitionManager的场景切换中调用了这个玩意
     {
         string resultPath = SelfMadeNamespaceTool.DataTool.GetArchiveDataPath() + ArchiveName;
 
@@ -147,6 +149,9 @@ public class GameManager : Singleton<GameManager>
     }
 
     #endregion
-
+    public void ButtonExit()
+    {
+        Application.Quit(); // quit the game
+    }
 
 }

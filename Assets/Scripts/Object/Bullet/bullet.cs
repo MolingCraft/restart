@@ -13,7 +13,7 @@ public class bullet : MonoBehaviour
         {
             if(FromObject.tag!=charaObject.tag)
             {
-                charaObject.Action_Hit(FromObject.charaData.damage);
+                charaObject.Action_Hit(FromObject.charaData.attackdamage);
                 hasHit=false;
             }
         }

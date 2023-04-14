@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 public class CharaCreateManager : Singleton<CharaCreateManager>
 {
     public Sprite SelectedSprite;
-    public CharaData SelectedCharaData;
+    public int SelectedCharaData;
 
     [Header("角色列表")]//初始模板
     public List<Sprite> SpriteList=new List<Sprite>();
-    public List<CharaData> CharaDataList=new List<CharaData>();
+    //public List<CharaData> CharaDataList=new List<CharaData>();
 
     [Header("按钮设置")]
     public GameObject ShowContent;//生成按钮的父物体
     public GameObject ButtonPrefab;//按钮预制体
     public Image ShowImage;//另一个显示图
-
+    private string PngDataPath;
 
 /*
     [Space(5)]//添加间距
@@ -53,10 +54,35 @@ public class CharaCreateManager : Singleton<CharaCreateManager>
 
     private void Start()
     {
+        PngDataPath=SelfMadeNamespaceTool.DataTool.GetPngDataPath()+GameManager.Instance.ArchiveName;
+        if (!File.Exists(PngDataPath)) Directory.CreateDirectory(PngDataPath);//检测并创建存档文件夹
         ShowtheButton();
     }
     private void ShowtheButton()
     {
+
+        //获取pngdata路径下面的所有资源文件
+        if (Directory.Exists(PngDataPath))
+        {
+            DirectoryInfo direction = new DirectoryInfo(PngDataPath);
+            FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
+
+            for (int i = 0; i < files.Length; i++)
+            {
+                if (!files[i].Name.EndsWith(".png"))
+                {
+                    continue;
+                }
+                //在此处将找到的png文件转换为Sprite并存储到List中
+                byte[] bytes = File.ReadAllBytes(files[i].FullName);
+                Texture2D texture = new Texture2D(2, 2);
+                texture.LoadImage(bytes);
+                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f),texture.width);
+                SpriteList.Add(sprite);
+            }
+            CharaManager.Instance.CharaSpriteList=SpriteList;
+        }
+
         for(int i=0;i<SpriteList.Count;i++)
         {
             var obj=Instantiate(ButtonPrefab,new Vector3(0,0,0),Quaternion.identity,ShowContent.transform);

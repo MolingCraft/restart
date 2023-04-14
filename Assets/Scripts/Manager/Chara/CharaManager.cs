@@ -31,6 +31,9 @@ public class CharaManager : Singleton<CharaManager>
     //public Queue<GameObject> ObjectQuene;
 
 
+    public List<Sprite>CharaSpriteList=new List<Sprite>();
+    [SerializeField]
+    public List<CharaData>CharaDataList=new List<CharaData>();
     protected override void Awake()
     {
         base.Awake();
@@ -48,6 +51,7 @@ public class CharaManager : Singleton<CharaManager>
       public void LoadArchiveChara(ArchiveData archiveData)//读取存档内角色
     {
         //RaceList=archiveData.
+        CharaDataList=archiveData.CharaDataList;
     }
 
 
@@ -57,7 +61,7 @@ public class CharaManager : Singleton<CharaManager>
 /// <param name="tagname"></param>
 /// <param name="vec3"></param>
 /// <returns></returns>
-    public GameObject CreateObject(tagname tagname,Vector3 vec3)
+    public GameObject CreateObject(tagname tagname,Vector3 vec3,int charanumm)
     {
         var obj=CharaObjectPool.GetPooledObject();
 
@@ -85,8 +89,15 @@ public class CharaManager : Singleton<CharaManager>
         GameObject obj = (GameObject)GameObject.Instantiate(
                 prefab,vec3, Quaternion.identity, createObjFather.transform);*/
 
-
-        obj.GetComponent<CharaObject>().charaData=CharaCreateManager.Instance.CharaDataList[UnityEngine.Random.Range(0,CharaCreateManager.Instance.CharaDataList.Count)];
+        var data1=CharaDataList[charanumm];
+        obj.GetComponent<CharaObject>().charaData.charaName=data1.charaName;
+        obj.GetComponent<CharaObject>().charaData.HP=data1.HP;
+        obj.GetComponent<CharaObject>().charaData.speed=data1.speed;
+        obj.GetComponent<CharaObject>().charaData.defend=data1.defend;
+        obj.GetComponent<CharaObject>().charaData.attackCD=data1.attackCD;
+        obj.GetComponent<CharaObject>().charaData.attackdamage=data1.attackdamage;
+        obj.GetComponent<CharaObject>().charaData.attackRange=data1.attackRange;
+        obj.GetComponent<CharaObject>().charaData.size=data1.size;
         obj.tag=tagname.ToString();
         createObjList.Add(obj);
         obj.SetActive(true);
@@ -94,12 +105,15 @@ public class CharaManager : Singleton<CharaManager>
 
         objScale=objScale*obj.GetComponent<CharaObject>().charaData.size;
         obj.transform.localScale=objScale;
-
+        if(tagname==tagname.Enemy)
+        {
+            obj.transform.GetChild(0).GetComponent<SpriteRenderer>().color=new Color(255,0,0,255);
+        }
+        else
+        {
+            obj.transform.GetChild(0).GetComponent<SpriteRenderer>().color=new Color(255,255,255,255);
+        }
         return obj;
-    }
-    public void DeleteObject()
-    {
-
     }
     void Start()
     {

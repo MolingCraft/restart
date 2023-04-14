@@ -14,54 +14,50 @@ public class ShowtheSpriteInImage : MonoBehaviour
         //ShowImage=this.transform.gameObject.GetComponent<Image>();
     }
 
+    private void changerahwdih()
+    {
+        ShowImage.sprite=CharaCreateManager.Instance.GetTheSprite(ShowNum);
+        if(ShowImage2!=null)ShowImage2.sprite=ShowImage.sprite;
+        CharaCreateManager.Instance.SelectedSprite=ShowImage.sprite;
+        CharaCreateManager.Instance.SelectedCharaData=ShowNum;
+    }
     public void NextSprite()
     {
         ShowNum++;
         if(ShowNum>=CharaCreateManager.Instance.GetSpriteListCount())ShowNum=0;
-        ShowImage.sprite=CharaCreateManager.Instance.GetTheSprite(ShowNum);
-        if(ShowImage2!=null)ShowImage2.sprite=ShowImage.sprite;
-        CharaCreateManager.Instance.SelectedSprite=ShowImage.sprite;
+        changerahwdih();
     }
     public void NextSprite(int num)
     {
         ShowNum+=num;
         if(ShowNum>=CharaCreateManager.Instance.GetSpriteListCount())ShowNum=0;
-        ShowImage.sprite=CharaCreateManager.Instance.GetTheSprite(ShowNum);
-        if(ShowImage2!=null)ShowImage2.sprite=ShowImage.sprite;
-        CharaCreateManager.Instance.SelectedSprite=ShowImage.sprite;
+        changerahwdih();
     }
 
     public void PreviousSprite()
     {
         ShowNum--;
         if(ShowNum<0)ShowNum=CharaCreateManager.Instance.GetSpriteListCount()-1;
-        ShowImage.sprite=CharaCreateManager.Instance.GetTheSprite(ShowNum);
-        if(ShowImage2!=null)ShowImage2.sprite=ShowImage.sprite;
-        CharaCreateManager.Instance.SelectedSprite=ShowImage.sprite;
+        changerahwdih();
     }
     public void PreviousSprite(int num)
     {
         ShowNum-=num;
         if(ShowNum<0)ShowNum=CharaCreateManager.Instance.GetSpriteListCount()-1;
-        ShowImage.sprite=CharaCreateManager.Instance.GetTheSprite(ShowNum);
-        if(ShowImage2!=null)ShowImage2.sprite=ShowImage.sprite;
-        CharaCreateManager.Instance.SelectedSprite=ShowImage.sprite;
+        changerahwdih();
+
     }
     public void SetSprite()
     {
         if(ShowNum<0)ShowNum=CharaCreateManager.Instance.GetSpriteListCount()-1;
         if(ShowNum>=CharaCreateManager.Instance.GetSpriteListCount())ShowNum=0;
-        ShowImage.sprite=CharaCreateManager.Instance.GetTheSprite(ShowNum);
-        if(ShowImage2!=null)ShowImage2.sprite=ShowImage.sprite;
-        CharaCreateManager.Instance.SelectedSprite=ShowImage.sprite;
+        changerahwdih();
     }
     public void SetSprite(int num)
     {
         ShowNum=num;
         if(ShowNum<0)ShowNum=CharaCreateManager.Instance.GetSpriteListCount()-1;
         if(ShowNum>=CharaCreateManager.Instance.GetSpriteListCount())ShowNum=0;
-        ShowImage.sprite=CharaCreateManager.Instance.GetTheSprite(ShowNum);
-        if(ShowImage2!=null)ShowImage2.sprite=ShowImage.sprite;
-        CharaCreateManager.Instance.SelectedSprite=ShowImage.sprite;
+        changerahwdih();
     }
 }
