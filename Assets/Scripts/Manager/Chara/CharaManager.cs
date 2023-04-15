@@ -32,6 +32,7 @@ public class CharaManager : Singleton<CharaManager>
 
 
     public List<Sprite>CharaSpriteList=new List<Sprite>();
+    public List<Sprite>WeaponSpriteList=new List<Sprite>();
     [SerializeField]
     public List<CharaData>CharaDataList=new List<CharaData>();
     protected override void Awake()
@@ -98,6 +99,12 @@ public class CharaManager : Singleton<CharaManager>
         obj.GetComponent<CharaObject>().charaData.attackdamage=data1.attackdamage;
         obj.GetComponent<CharaObject>().charaData.attackRange=data1.attackRange;
         obj.GetComponent<CharaObject>().charaData.size=data1.size;
+
+
+        var num=UnityEngine.Random.Range(0,WeaponSpriteList.Count);
+        obj.GetComponent<CharaObject>().WeaponObject.GetComponent<SpriteRenderer>().sprite=WeaponSpriteList[num];
+
+
         obj.tag=tagname.ToString();
         createObjList.Add(obj);
         obj.SetActive(true);
@@ -105,6 +112,9 @@ public class CharaManager : Singleton<CharaManager>
 
         objScale=objScale*obj.GetComponent<CharaObject>().charaData.size;
         obj.transform.localScale=objScale;
+
+        obj.GetComponent<ShowtheHealthUI>().scale=objScale;
+        obj.GetComponent<ShowtheHealthUI>().yChange=obj.transform.localScale.y/2;
         if(tagname==tagname.Enemy)
         {
             obj.transform.GetChild(0).GetComponent<SpriteRenderer>().color=new Color(255,0,0,255);

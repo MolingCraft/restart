@@ -1388,6 +1388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73f7a7bf288744647a6f86d168c95ba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newSurfaceShader: {fileID: -6465566751694194690, guid: 093d6567dae9e9747a27dfc593a7e783, type: 3}
   dataCreatePanel: {fileID: 1078112304}
   drawingCamera: {fileID: 38856586}
   drawingTexture: {fileID: 0}
@@ -1401,7 +1402,6 @@ MonoBehaviour:
   SelectedImage: {fileID: 1470843536}
   SelectedCharaData:
     charaName: 
-    role: 0
     HP: 0
     speed: 0
     defend: 0

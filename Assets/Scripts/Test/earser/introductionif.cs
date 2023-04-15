@@ -10,13 +10,11 @@ public class introductionif : MonoBehaviour
     {
         if(!GameManager.Instance.archiveData.introductionif)
         {
-            Debug.Log("awa");
             panel.SetActive(true);
             GameManager.Instance.archiveData.introductionif=true;
             GameManager.Instance.Save();
         }
         else{
-            Debug.Log("qwq");
             panel.SetActive(false);
         }
     }

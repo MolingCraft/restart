@@ -66,6 +66,10 @@ public class CharaObject : MonoBehaviour
         this.transform.gameObject.SetActive(true);
         this.transform.position=ResetPosition;
         curHP=charaData.HP;
+        this.GetComponent<ShowtheHealthUI>().enabled=true;
+        if(this.GetComponent<ShowtheHealthUI>().healthBar!=null)return;
+        this.GetComponent<ShowtheHealthUI>().createhealthbar();
+        this.GetComponent<ShowtheHealthUI>().healthBar.GetComponent<RectTransform>().localScale=this.GetComponent<ShowtheHealthUI>().scale;
     }
     void Trace()//追踪
     {
@@ -199,6 +203,8 @@ public class CharaObject : MonoBehaviour
         ObjectList.Remove(obj);
         obj.SetActive(false);
         CharaManager.Instance.CharaObjectPool.AddInPool(obj);
+        Destroy(this.GetComponent<ShowtheHealthUI>().healthBar);
+        this.GetComponent<ShowtheHealthUI>().enabled=false;
     }
 
 }

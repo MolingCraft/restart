@@ -308,6 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarCanvas: {fileID: 0}
   healthSliderPrefab: {fileID: 7972050244552070775, guid: 52e3ae11fc37af64f8059fd52bd2aec4, type: 3}
+  healthBar: {fileID: 0}
   yChange: 0
 --- !u!114 &5233495623598993102
 MonoBehaviour:
@@ -451,7 +452,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7535329671233174474}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1

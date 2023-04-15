@@ -40,6 +40,76 @@
       "attackdamage": 3.0,
       "attackRange": 1.0,
       "attackCD": 0.8
+    },
+    {
+      "charaName": "随手的涂鸦",
+      "HP": 1.0,
+      "speed": 1.0,
+      "defend": 1.0,
+      "size": 5.0,
+      "attackdamage": 1.0,
+      "attackRange": 1.0,
+      "attackCD": 1.0
+    },
+    {
+      "charaName": "随手的涂鸦",
+      "HP": 99.0,
+      "speed": 1.0,
+      "defend": 1.0,
+      "size": 1.0,
+      "attackdamage": 99.0,
+      "attackRange": 1.0,
+      "attackCD": 1.0
+    },
+    {
+      "charaName": "随手的涂鸦",
+      "HP": 99.0,
+      "speed": 1.0,
+      "defend": 1.0,
+      "size": 2.0,
+      "attackdamage": 99.0,
+      "attackRange": 1.0,
+      "attackCD": 1.0
+    },
+    {
+      "charaName": "随手的涂鸦",
+      "HP": 10.0,
+      "speed": 1.0,
+      "defend": 1.0,
+      "size": 5.0,
+      "attackdamage": 1.0,
+      "attackRange": 1.0,
+      "attackCD": 1.0
+    },
+    {
+      "charaName": "随手的涂鸦",
+      "HP": 8.0,
+      "speed": 2.0,
+      "defend": 1.0,
+      "size": 1.0,
+      "attackdamage": 1.0,
+      "attackRange": 1.0,
+      "attackCD": 1.0
+    },
+    {
+      "charaName": "随手的涂鸦",
+      "HP": 8.0,
+      "speed": 2.0,
+      "defend": 1.0,
+      "size": 1.0,
+      "attackdamage": 1.0,
+      "attackRange": 1.0,
+      "attackCD": 1.0
+    },
+    {
+      "charaName": "战斗者123",
+      "HP": 1.0,
+      "speed": 1.0,
+      "defend": 1.0,
+      "size": 1.0,
+      "attackdamage": 6.0,
+      "attackRange": 1.0,
+      "attackCD": 1.0
     }
   ]
 }

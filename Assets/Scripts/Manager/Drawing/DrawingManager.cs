@@ -5,6 +5,7 @@ using System.IO;
 using UnityEngine.UI;
 public class DrawingManager : Singleton<DrawingManager>
 {
+    public Shader newSurfaceShader;
     public GameObject dataCreatePanel;
     public Camera drawingCamera;
     public RenderTexture drawingTexture;
@@ -79,7 +80,8 @@ public class DrawingManager : Singleton<DrawingManager>
                 GameObject obj = new GameObject();//线条object
                 LineList.Add(obj);
                 line= obj.AddComponent<LineRenderer>();
-                line.material.color= color;
+                line.material = new Material(newSurfaceShader);
+                line.material.SetColor("_Color",color);
                 line.widthMultiplier = slider.value;//宽度
                 line.SetPosition(0,hit.point);
                 line.SetPosition(1, hit.point);
